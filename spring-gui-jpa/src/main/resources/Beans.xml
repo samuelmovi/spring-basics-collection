@@ -1,0 +1,67 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	   xsi:schemaLocation="
+	   	http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/tx
+    	http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/data/jpa
+		http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+
+	<context:annotation-config/>
+
+	<!-- H2 DATA SOURCE -->
+	<bean id = "h2" class = "org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name = "driverClassName" value = "org.h2.Driver"/>
+		<property name = "url" value = "jdbc:h2:file:./db/h2-database"/>
+	</bean>
+
+	<!-- VENDOR ADAPTER -->
+	<bean name="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter" />
+
+	<!-- ENTITY MANAGER FACTORY -->
+	<bean id="entityManagerFactory"
+		  class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="h2" />
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter"/>
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.H2Dialect</prop>
+			</props>
+		</property>
+		<property name="packagesToScan" value="samuelmovi.springGuiJpa.model" />
+	</bean>
+
+	<!-- TRANSACTION BEAN -->
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<tx:annotation-driven />
+
+	<jpa:repositories base-package="samuelmovi.springGuiJpa.model" />
+
+	<context:component-scan base-package="samuelmovi.springGuiJpa.model" />
+
+	<!-- APP BEAN -->
+    <bean id="view" class="samuelmovi.springGuiJpa.view.View">
+        <property name="titleMessage" value="CTU Personnel Management"/>
+        <property name="allOperativesTabTitle" value="All"/>
+        <property name="allActiveOperativesTabTitle" value="Active"/>
+        <property name="registerNewOperativeTabTitle" value="New"/>
+        <property name="deactivateOperativeTabTitle" value="Status"/>
+        <property name="deleteOperativeTabTitle" value="Remove"/>
+        <property name="columnNames" value="ID, Last Name, First Name, Status"/>
+    </bean>
+
+    <bean id="controller" class="samuelmovi.springGuiJpa.controller.Controller">
+        <constructor-arg name="view" ref="view"/>
+    </bean>
+
+</beans>
