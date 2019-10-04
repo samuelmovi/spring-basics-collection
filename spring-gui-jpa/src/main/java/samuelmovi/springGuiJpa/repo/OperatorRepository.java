@@ -10,6 +10,7 @@ import samuelmovi.springGuiJpa.model.Operator;
 @Repository
 public interface OperatorRepository extends CrudRepository<Operator, Long> {
 
+    List<Operator> findAll();
     List<Operator> findByLastNameAllIgnoringCase(String lastName);
     List<Operator> findByFirstNameAllIgnoringCase(String firstName);
     List<Operator> findByActive(boolean active);
