@@ -2,7 +2,7 @@ package samuelmovi.springGuiJpa.controller;
 
 import org.junit.Assert;
 import samuelmovi.springGuiJpa.model.Operator;
-import samuelmovi.springGuiJpa.model.OperatorRepository;
+import samuelmovi.springGuiJpa.repo.OperatorRepository;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

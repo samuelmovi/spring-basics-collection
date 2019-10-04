@@ -5,9 +5,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [TODO]
-- Create missing tests
+- Create all missing tests
+- fix spring-gui-jpa not using testdb as in Tests.xml
 
-## [0.0.1] - 2019-09-28
+## 2019-10-04
+### Added
+- some tests to controllerTest
+
+
+## 2019-09-28
 ### Added
 - Project folders: boot-clijpa, boot-gui-jpa, spring-cli-jdbc, spring-cli-jpa, spring-gui-jdbc, spring-gui-jpa
 - CHANGELOG, README

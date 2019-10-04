@@ -1,6 +1,6 @@
 package samuelmovi.springGuiJpa;
 
-import samuelmovi.springGuiJpa.model.OperatorRepository;
+import samuelmovi.springGuiJpa.repo.OperatorRepository;
 import org.springframework.context.support.AbstractApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import samuelmovi.springGuiJpa.controller.Controller;

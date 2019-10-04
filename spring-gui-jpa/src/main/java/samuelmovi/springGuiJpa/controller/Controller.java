@@ -2,7 +2,7 @@ package samuelmovi.springGuiJpa.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import samuelmovi.springGuiJpa.model.Operator;
-import samuelmovi.springGuiJpa.model.OperatorRepository;
+import samuelmovi.springGuiJpa.repo.OperatorRepository;
 import samuelmovi.springGuiJpa.view.View;
 
 import javax.swing.*;

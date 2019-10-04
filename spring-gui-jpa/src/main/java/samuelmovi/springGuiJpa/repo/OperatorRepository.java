@@ -1,9 +1,10 @@
-package samuelmovi.springGuiJpa.model;
+package samuelmovi.springGuiJpa.repo;
 
 import java.util.List;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+import samuelmovi.springGuiJpa.model.Operator;
 
 
 @Repository

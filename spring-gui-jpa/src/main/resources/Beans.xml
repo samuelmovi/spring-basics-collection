@@ -45,7 +45,7 @@
 
 	<tx:annotation-driven />
 
-	<jpa:repositories base-package="samuelmovi.springGuiJpa.model" />
+	<jpa:repositories base-package="samuelmovi.springGuiJpa.model,samuelmovi.springGuiJpa.repo" />
 
 	<context:component-scan base-package="samuelmovi.springGuiJpa.model" />
 
