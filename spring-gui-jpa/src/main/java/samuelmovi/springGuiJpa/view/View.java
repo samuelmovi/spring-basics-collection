@@ -228,6 +228,7 @@ public class View {
         deleteOperativesTab.add(scroll);
 
         deleteOperativesTabTable = new JTable(allOperativesModel);
+        // TODO: figure out how the next line is crashing the fillModel method
         // deleteOperativesTabTable.setRowSorter(deleteOperativesSorter);
         scroll.setViewportView(deleteOperativesTabTable);
 

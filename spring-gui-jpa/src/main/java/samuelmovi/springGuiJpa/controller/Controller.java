@@ -1,5 +1,6 @@
 package samuelmovi.springGuiJpa.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import samuelmovi.springGuiJpa.model.Operator;
 import samuelmovi.springGuiJpa.model.OperatorRepository;
 import samuelmovi.springGuiJpa.view.View;
@@ -12,7 +13,7 @@ import java.util.Optional;
 
 
 public class Controller {
-
+    @Autowired
     OperatorRepository operatorRepository;
     View view;
 
@@ -45,7 +46,7 @@ public class Controller {
             }
         });
         view.getDeleteButton().addActionListener(e -> deleteOperative());
-        view.getRegisterButton().addActionListener(e -> createNew());
+        view.getRegisterButton().addActionListener(e -> createNew(view.getLastNameField().getText(), view.getFirstNameField().getText()));
     }
 
     public void populate(){
@@ -58,14 +59,10 @@ public class Controller {
         }
     }
 
-    public void createNew(){
-        String firstName = view.getLastNameField().getText();
-        String lastName = view.getFirstNameField().getText();
+    public void createNew(String lastName, String firstName){
         operatorRepository.save(new Operator(firstName, lastName));
-
         view.getLastNameField().setText("");
         view.getFirstNameField().setText("");
-
         refreshModels();
     }
 
@@ -99,5 +96,9 @@ public class Controller {
 
     public void setOperatorRepository(OperatorRepository operatorRepository) {
         this.operatorRepository = operatorRepository;
+    }
+
+    public OperatorRepository getOperatorRepository() {
+        return operatorRepository;
     }
 }

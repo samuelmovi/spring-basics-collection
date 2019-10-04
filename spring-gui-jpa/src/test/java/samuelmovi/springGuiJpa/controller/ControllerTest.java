@@ -1,5 +1,6 @@
 package samuelmovi.springGuiJpa.controller;
 
+import org.junit.Assert;
 import samuelmovi.springGuiJpa.model.Operator;
 import samuelmovi.springGuiJpa.model.OperatorRepository;
 import org.junit.After;
@@ -9,6 +10,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import samuelmovi.springGuiJpa.view.View;
 
 @ContextConfiguration(locations = "classpath:Tests.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -18,6 +20,8 @@ public class ControllerTest {
     OperatorRepository operatorRepository;
     @Autowired
     Controller controller;
+    @Autowired
+    View view;
 
     private String[][] employeeData = {
             {"Bauer", "Jack"},
@@ -33,6 +37,7 @@ public class ControllerTest {
             Operator operator = new Operator(data[0], data[1]);
             operatorRepository.save(operator);
         }
+        controller.init();
     }
 
     @After
@@ -44,7 +49,15 @@ public class ControllerTest {
 
     @Test
     public void testCreateNew(){
-
+        // check number of instances in db table
+        long before = controller.getOperatorRepository().count();
+        // execute method
+        controller.createNew("last", "first");
+        // assert new number of instances in db table
+        Assert.assertEquals(before+1, controller.getOperatorRepository().count());
+        // assert field values are as expected
+        Assert.assertNotNull(controller.getOperatorRepository().findByLastNameAllIgnoringCase("LAST"));
+        Assert.assertTrue(controller.getOperatorRepository().findByFirstNameAllIgnoringCase("asdfq123").isEmpty());
     }
 
 }
