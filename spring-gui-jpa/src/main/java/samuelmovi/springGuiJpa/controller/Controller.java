@@ -94,11 +94,21 @@ public class Controller {
         view.fillModel(view.getAllActiveOperativesModel(), operatorRepository.findByActive(true));
     }
 
+    // G's & S's
+
     public void setOperatorRepository(OperatorRepository operatorRepository) {
         this.operatorRepository = operatorRepository;
     }
 
     public OperatorRepository getOperatorRepository() {
         return operatorRepository;
+    }
+
+    public String getOperatorID() {
+        return operatorID;
+    }
+
+    public void setOperatorID(String operatorID) {
+        this.operatorID = operatorID;
     }
 }

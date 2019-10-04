@@ -60,4 +60,51 @@ public class ControllerTest {
         Assert.assertTrue(controller.getOperatorRepository().findByFirstNameAllIgnoringCase("asdfq123").isEmpty());
     }
 
+    // @Test
+    public void testSetId(){
+        // create JTable with one row, and one column
+
+        // set value to known number
+
+        // set row as active
+
+        // execute method
+
+        // assert expected result
+
+
+    }
+
+    // @Test
+    public void testDeleteOperative(){
+        // set value for controller.operatorID
+
+        // save number of instances in database table
+
+        // execute method
+
+        // assert database table has one less instance
+
+    }
+
+    @Test
+    public void testDeactivateOperative(){
+        // set value for controller.operatorID
+        Operator lastOperator = controller.getOperatorRepository().findByActive(true).get(0);
+        controller.setOperatorID(String.valueOf(lastOperator.getId()));
+        // save number of active operatives in database table
+        long before = controller.getOperatorRepository().findByActive(true).size();
+        // execute method
+        controller.deactivateOperative();
+        // assert database table has one less active operative
+        long after = controller.getOperatorRepository().findByActive(true).size();
+        Assert.assertEquals(before-1, after);
+    }
+
+    // @Test
+    public void testRefreshModels(){
+
+    }
+
+
 }
