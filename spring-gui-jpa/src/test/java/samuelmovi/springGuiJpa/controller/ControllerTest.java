@@ -83,10 +83,8 @@ public class ControllerTest {
         JTable testTable = new JTable(testModel);
         // set row as active
         testTable.setRowSelectionInterval(0,0);
-        String before = controller.getOperatorID();
         // execute method
         controller.setID(testTable);
-        String after = controller.getOperatorID();
         // assert expected result
         Assert.assertEquals(testValue, controller.getOperatorID());
 
