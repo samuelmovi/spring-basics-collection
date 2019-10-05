@@ -1,9 +1,12 @@
 package samuelmovi.bootGuiJpa.controller;
 
 import org.junit.Assert;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 import samuelmovi.bootGuiJpa.model.Operator;
 import samuelmovi.bootGuiJpa.repo.OperatorRepository;
@@ -16,19 +19,16 @@ import samuelmovi.bootGuiJpa.view.View;
 
 import java.util.Optional;
 
-//@Import(TestConfig.class)
 @DataJpaTest
 @RunWith(SpringRunner.class)
 public class ControllerTest {
 
     @Autowired
-    OperatorRepository operatorRepository;
-    // @Autowired
-    Controller controller; // = new Controller();
-    @MockBean
-    View view;
+    private OperatorRepository operatorRepository;
 
-    boolean firstRun = true;
+    private Controller controller;
+    @MockBean
+    private View view;
 
     private String[][] employeeData = {
             {"Bauer", "Jack"},
@@ -99,9 +99,8 @@ public class ControllerTest {
 
     // test refreshModels
 
-    //
 
-    // @Test
+   // @Test
     public void testCreateNew(){
         // check number of instances in db table
         long before = operatorRepository.count();

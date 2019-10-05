@@ -7,12 +7,14 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.junit.Assert;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import samuelmovi.bootGuiJpa.model.Operator;
 
 
 import java.util.List;
 
+@TestPropertySource(locations="classpath:application-test.properties")
 @DataJpaTest
 @RunWith(SpringRunner.class)
 public class OperatorRepositoryTest {

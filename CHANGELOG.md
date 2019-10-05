@@ -7,10 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## [TODO]
 - Create all missing tests
 - fix spring-gui-jpa not using testdb as in Tests.xml
+- fix boot-gui-jpa not using testdb as in test properties
+- improve test properties settings
+
+
+## 2019-10-05
+### added
+- more tests for boot-gui-jpa
+
 
 ## 2019-10-04
 ### Added
-- some tests to controllerTest
+- some tests to controllerTest in spring-gui-jpa
 
 
 ## 2019-09-28
