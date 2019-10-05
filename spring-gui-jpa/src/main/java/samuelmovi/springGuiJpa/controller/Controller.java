@@ -28,10 +28,8 @@ public class Controller {
             populate();
         }
 
-        view.setAllOperatives(operatorRepository.findAll());
-        view.setAllActiveOperatives(operatorRepository.findByActive(true));
-
         view.render();
+        refreshModels();
 
         // set controls
         view.getDeactivateOperativesTabTable().addMouseListener(new MouseAdapter() {

@@ -8,6 +8,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import samuelmovi.springGuiJpa.repo.OperatorRepository;
 
 @ContextConfiguration(locations = "classpath:Tests.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -15,9 +16,16 @@ public class ViewTest {
 
     @Autowired
     View view;
+    @Autowired
+    private OperatorRepository operatorRepository;
+
+    private static boolean firstRun = true;
 
     @Before
     public void before(){
+        if (firstRun){
+
+        }
 
     }
 

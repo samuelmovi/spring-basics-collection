@@ -46,8 +46,6 @@ public class View {
 
     private String[] columnNames;
 
-    private List<Operator> allOperatives;
-    private List<Operator> allActiveOperatives;
     private JButton registerButton;
     private JButton deleteButton;
     private JButton deactivateButton;
@@ -56,7 +54,6 @@ public class View {
     private JTextField firstNameField;
 
     public void render() {
-
 
         JFrame frame = new JFrame(titleMessage);
         frame.setBounds(100, 100, 400, 300);
@@ -80,9 +77,6 @@ public class View {
         registerNew();
         deactivate();
         delete();
-
-        allOperativesModel = fillModel(allOperativesModel, allOperatives);
-        allActiveOperativesModel = fillModel(allActiveOperativesModel, allActiveOperatives);
 
     }
 
@@ -265,7 +259,7 @@ public class View {
         this.deleteOperativeTabTitle = deleteOperativeTabTitle;
     }
 
-    public List<Operator> getAllOperatives() {
+    /*public List<Operator> getAllOperatives() {
         return allOperatives;
     }
 
@@ -279,7 +273,7 @@ public class View {
 
     public void setAllActiveOperatives(List<Operator> allActiveOperatives) {
         this.allActiveOperatives = allActiveOperatives;
-    }
+    }*/
 
     public JPanel getContentPane() {
         return contentPane;
