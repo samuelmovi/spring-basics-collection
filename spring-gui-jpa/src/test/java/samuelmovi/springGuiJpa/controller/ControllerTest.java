@@ -10,7 +10,6 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import samuelmovi.springGuiJpa.view.View;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -23,8 +22,7 @@ public class ControllerTest {
     OperatorRepository operatorRepository;
     @Autowired
     Controller controller;
-    @Autowired
-    View view;
+
 
     private String[][] employeeData = {
             {"Bauer", "Jack"},
@@ -48,6 +46,16 @@ public class ControllerTest {
         // EMPTY DATABASE
         System.out.println("[CtrlTest] Emptying database...");
         operatorRepository.deleteAll();
+    }
+
+    @Test
+    public void testPopulate(){
+        // check db count
+        long before = operatorRepository.count();
+        // execute method
+        controller.populate();
+        // assert expected results
+        Assert.assertEquals(before + 5, operatorRepository.count());
     }
 
     @Test
