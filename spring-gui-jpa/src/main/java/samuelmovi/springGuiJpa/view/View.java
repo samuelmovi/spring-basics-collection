@@ -14,6 +14,7 @@ import java.util.Vector;
 
 
 public class View {
+    private JFrame frame;
     private JPanel contentPane;
 
     private JPanel allOperativesTab;
@@ -59,7 +60,7 @@ public class View {
 
     public void render() {
 
-        JFrame frame = new JFrame(titleMessage);
+        frame = new JFrame(titleMessage);
         frame.setBounds(100, 100, 400, 300);
         frame.setResizable(false);
         frame.setVisible(true);
@@ -418,5 +419,13 @@ public class View {
 
     public void setDeleteOperativesTab(JPanel deleteOperativesTab) {
         this.deleteOperativesTab = deleteOperativesTab;
+    }
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public void setFrame(JFrame frame) {
+        this.frame = frame;
     }
 }
