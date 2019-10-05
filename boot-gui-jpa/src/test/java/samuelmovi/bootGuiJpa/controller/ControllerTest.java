@@ -17,6 +17,8 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import samuelmovi.bootGuiJpa.view.View;
 
+import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.util.Optional;
 
 @DataJpaTest
@@ -58,9 +60,34 @@ public class ControllerTest {
         operatorRepository.deleteAll();
     }
 
-    // test populate
+    @Test
+    public void testPopulate(){
+        // check db count
+        long before = operatorRepository.count();
+        // execute method
+        controller.populate();
+        // assert expected results
+        Assert.assertEquals(before + 5, operatorRepository.count());
+    }
 
-    // test setID
+    @Test
+    public void testSetId(){
+        String testValue = "33";
+        // create table model with one row, and one column
+        DefaultTableModel testModel = new DefaultTableModel();
+        testModel.setColumnCount(1);
+        testModel.setRowCount(1);
+        testModel.setValueAt(testValue, 0, 0);
+        // create JTable
+        JTable testTable = new JTable(testModel);
+        // set row as active
+        testTable.setRowSelectionInterval(0,0);
+        // execute method
+        controller.setID(testTable);
+        // assert expected result
+        Assert.assertEquals(testValue, controller.getOperatorID());
+
+    }
 
     @Test
     public void testDeleteOperative(){
@@ -105,6 +132,7 @@ public class ControllerTest {
         // check number of instances in db table
         long before = operatorRepository.count();
         // execute method
+        // TODO: figure out why next line throws null pointer exception when the others don't
         controller.createNew("first", "last");
         // assert new number of instances in db table
         Assert.assertEquals(before+1, operatorRepository.count());

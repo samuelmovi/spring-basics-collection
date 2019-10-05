@@ -24,7 +24,9 @@ public class Controller {
 
     @Bean
     public void init(){
-        populate();
+        if( operatorRepository.count() == 0){
+            populate();
+        }
 
         view.setAllOperatives((List<Operator>) operatorRepository.findAll());
         view.setAllActiveOperatives(operatorRepository.findAllByActive(true));
@@ -50,13 +52,12 @@ public class Controller {
     }
 
     public void populate(){
-        if( operatorRepository.count() == 0){
-            operatorRepository.save(new Operator("Jack", "Bauer"));
-            operatorRepository.save(new Operator("Chloe", "O'Brian"));
-            operatorRepository.save(new Operator("Kim", "Bauer"));
-            operatorRepository.save(new Operator("David", "Palmer"));
-            operatorRepository.save(new Operator("Michelle", "Dessler"));
-        }
+        // add 5 entries to operators
+        operatorRepository.save(new Operator("Jack", "Bauer"));
+        operatorRepository.save(new Operator("Chloe", "O'Brian"));
+        operatorRepository.save(new Operator("Kim", "Bauer"));
+        operatorRepository.save(new Operator("David", "Palmer"));
+        operatorRepository.save(new Operator("Michelle", "Dessler"));
     }
 
     public void createNew(String firstName, String lastName){
