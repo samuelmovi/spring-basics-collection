@@ -29,8 +29,13 @@ public class Controller {
         }
 
         view.render();
-        refreshModels();
+        view.createContent();
 
+        refreshModels();
+        controls();
+    }
+
+    public void controls(){
         // set controls
         view.getDeactivateOperativesTabTable().addMouseListener(new MouseAdapter() {
             @Override

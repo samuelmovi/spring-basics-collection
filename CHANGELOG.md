@@ -17,6 +17,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - spring-gui-jpa using correct test database
 
+### Changed
+- code refactoring in spring-gui-jpa to improve testability
+
 ## 2019-10-04
 ### Added
 - some tests to controllerTest in spring-gui-jpa

@@ -72,12 +72,14 @@ public class View {
         tabbedPane.setBounds(10, 10, 380, 250);
         contentPane.add(tabbedPane);
 
+    }
+
+    public void createContent(){
         allOperatives();
         allActive();
         registerNew();
         deactivate();
         delete();
-
     }
 
     public DefaultTableModel fillModel(DefaultTableModel model, List<Operator> list){
@@ -259,21 +261,33 @@ public class View {
         this.deleteOperativeTabTitle = deleteOperativeTabTitle;
     }
 
-    /*public List<Operator> getAllOperatives() {
-        return allOperatives;
+    public JPanel getRegisterNewOperativesTab() {
+        return registerNewOperativesTab;
     }
 
-    public void setAllOperatives(List<Operator> allOperatives) {
-        this.allOperatives = allOperatives;
+    public void setRegisterNewOperativesTab(JPanel registerNewOperativesTab) {
+        this.registerNewOperativesTab = registerNewOperativesTab;
     }
 
-    public List<Operator> getAllActiveOperatives() {
-        return allActiveOperatives;
+    public String getAllOperativesTabTitle() {
+        return allOperativesTabTitle;
     }
 
-    public void setAllActiveOperatives(List<Operator> allActiveOperatives) {
-        this.allActiveOperatives = allActiveOperatives;
-    }*/
+    public String getAllActiveOperativesTabTitle() {
+        return allActiveOperativesTabTitle;
+    }
+
+    public String getRegisterNewOperativeTabTitle() {
+        return registerNewOperativeTabTitle;
+    }
+
+    public String getDeactivateOperativeTabTitle() {
+        return deactivateOperativeTabTitle;
+    }
+
+    public String getDeleteOperativeTabTitle() {
+        return deleteOperativeTabTitle;
+    }
 
     public JPanel getContentPane() {
         return contentPane;
@@ -377,5 +391,13 @@ public class View {
 
     public void setFirstNameField(JTextField firstNameField) {
         this.firstNameField = firstNameField;
+    }
+
+    public JTabbedPane getTabbedPane() {
+        return tabbedPane;
+    }
+
+    public void setTabbedPane(JTabbedPane tabbedPane) {
+        this.tabbedPane = tabbedPane;
     }
 }
