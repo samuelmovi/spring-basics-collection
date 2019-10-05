@@ -28,7 +28,7 @@ public class Controller {
             populate();
         }
 
-        view.setAllOperatives((List<Operator>) operatorRepository.findAll());
+        view.setAllOperatives(operatorRepository.findAll());
         view.setAllActiveOperatives(operatorRepository.findByActive(true));
 
         view.render();

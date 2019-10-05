@@ -116,7 +116,7 @@ public class View {
 
         // MODEL
         allOperativesModel.setRowCount(0);
-        allOperativesModel.setColumnCount(4);
+        allOperativesModel.setColumnCount(columnNames.length);
         allOperativesModel.setColumnIdentifiers(columnNames);
 
         // TABLE
