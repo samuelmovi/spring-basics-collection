@@ -47,7 +47,7 @@ public class OperatorRepositoryTest {
     @Test
     public void testFindByActive(){
         // FIND ACTIVE
-        List<Operator> activeOperators = operatorRepository.findByActive(true);
+        List<Operator> activeOperators = operatorRepository.findAllByActive(true);
         Assert.assertEquals(3, activeOperators.size());
     }
 

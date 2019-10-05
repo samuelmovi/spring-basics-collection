@@ -27,7 +27,7 @@ public class Controller {
         populate();
 
         view.setAllOperatives((List<Operator>) operatorRepository.findAll());
-        view.setAllActiveOperatives(operatorRepository.findByActive(true));
+        view.setAllActiveOperatives(operatorRepository.findAllByActive(true));
 
         view.render();
 
@@ -38,14 +38,14 @@ public class Controller {
                 setID(view.getDeactivateOperativesTabTable());
             }
         });
-        view.getDeactivateButton().addActionListener(e -> deactivateOperative());
+        view.getDeactivateButton().addActionListener(e -> deactivateOperative(Long.valueOf(operatorID)));
         view.getDeleteOperativesTabTable().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent arg0){
                 setID(view.getDeleteOperativesTabTable());
             }
         });
-        view.getDeleteButton().addActionListener(e -> deleteOperative());
+        view.getDeleteButton().addActionListener(e -> deleteOperative(Long.valueOf(operatorID)));
         view.getRegisterButton().addActionListener(e -> createNew(view.getLastNameField().getText(), view.getFirstNameField().getText()));
     }
 
@@ -72,28 +72,25 @@ public class Controller {
         operatorID = String.valueOf(table.getValueAt(table.getSelectedRow(),0));
     }
 
-    public void deleteOperative(){
-        if (operatorID != null){
-            operatorRepository.deleteById(Long.valueOf(operatorID));
-        }
+    public void deleteOperative(long id){
+        operatorRepository.deleteById(Long.valueOf(id));
+        // this should be enabled
         //refreshModels();
     }
 
-    public void deactivateOperative(){
-        if (operatorID != null){
-            Optional<Operator> optional = operatorRepository.findById(Long.valueOf(operatorID));
-            if (optional.isPresent()){
-                Operator operator = optional.get();
-                operator.setActive(false);
-                operatorRepository.save(operator);
-            }
+    public void deactivateOperative(long id){
+        Optional<Operator> optional = operatorRepository.findById(Long.valueOf(id));
+        if (optional.isPresent()){
+            Operator operator = optional.get();
+            operator.setActive(false);
+            operatorRepository.save(operator);
         }
         refreshModels();
     }
 
     public void refreshModels(){
         view.fillModel(view.getAllOperativesModel(), (List<Operator>)operatorRepository.findAll());
-        view.fillModel(view.getAllActiveOperativesModel(), operatorRepository.findByActive(true));
+        view.fillModel(view.getAllActiveOperativesModel(), operatorRepository.findAllByActive(true));
     }
 
 

@@ -64,42 +64,44 @@ public class ControllerTest {
 
     @Test
     public void testDeleteOperative(){
+        // capture current total operatives
+        long before = operatorRepository.count();
         // set operativeID
         Optional<Operator> optional = operatorRepository.findByFirstName(
                 operatorRepository.findAll().get(0).getFirstName()
         );
         if (optional.isPresent()){
             Operator operator = optional.get();
-            controller.setOperatorID(String.valueOf(operator.getId()));
             // execute function
-            controller.deleteOperative();
+            controller.deleteOperative(operator.getId());
         }
         // test result
-        Assert.assertEquals(2, operatorRepository.count());
+        Assert.assertEquals(before -1 , operatorRepository.count());
 
     }
 
     @Test
     public void testDeactivateOperative(){
+        // capture current total operatives
+        long before = operatorRepository.findAllByActive(true).size();
         // set operativeID
         Optional<Operator> optional = operatorRepository.findByFirstName(
                 operatorRepository.findAll().get(0).getFirstName()
         );
         if (optional.isPresent()){
             Operator operator = optional.get();
-            controller.setOperatorID(String.valueOf(operator.getId()));
             // execute function
-            controller.deactivateOperative();
+            controller.deactivateOperative(operator.getId());
         }
         // test result
-        Assert.assertEquals(2, operatorRepository.findByActive(true).size());
+        Assert.assertEquals(before - 1, operatorRepository.findAllByActive(true).size());
     }
 
     // test refreshModels
 
     //
 
-    @Test
+    // @Test
     public void testCreateNew(){
         // check number of instances in db table
         long before = operatorRepository.count();

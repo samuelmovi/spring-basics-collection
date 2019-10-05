@@ -13,7 +13,7 @@ public interface OperatorRepository extends CrudRepository<Operator, Long> {
     List<Operator> findByLastNameAllIgnoringCase(String lastName);
     List<Operator> findByFirstNameAllIgnoringCase(String firstName);
     
-    List<Operator> findByActive(boolean active);
+    List<Operator> findAllByActive(boolean active);
     List<Operator> findAll();
     Optional<Operator> findById(long id);
     Optional<Operator> findByFirstName(String firstName);
