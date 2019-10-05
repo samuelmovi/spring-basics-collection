@@ -112,10 +112,4 @@ public class ControllerTest {
         Assert.assertEquals(before-1, after);
     }
 
-    // @Test
-    public void testRefreshModels(){
-
-    }
-
-
 }

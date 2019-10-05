@@ -1,12 +1,10 @@
 package samuelmovi.bootGuiJpa.controller;
 
 import org.junit.Assert;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
 import org.springframework.test.context.junit4.SpringRunner;
 import samuelmovi.bootGuiJpa.model.Operator;
 import samuelmovi.bootGuiJpa.repo.OperatorRepository;
@@ -29,7 +27,7 @@ public class ControllerTest {
     private OperatorRepository operatorRepository;
 
     private Controller controller;
-    @MockBean
+    @Mock
     private View view;
 
     private String[][] employeeData = {
@@ -40,6 +38,9 @@ public class ControllerTest {
 
     @Before
     public void before(){
+        // setup mocks
+        MockitoAnnotations.initMocks(this);
+
         // setup controller
         this.controller = new Controller();
         this.controller.setOperatorRepository(operatorRepository);
@@ -124,12 +125,11 @@ public class ControllerTest {
         Assert.assertEquals(before - 1, operatorRepository.findAllByActive(true).size());
     }
 
-    // @Test
+    @Test
     public void testCreateNew(){
         // check number of instances in db table
         long before = operatorRepository.count();
         // execute method
-        // TODO: figure out why next line throws null pointer exception when the others don't
         controller.createNew("first", "last");
         // assert new number of instances in db table
         Assert.assertEquals(before+1, operatorRepository.count());

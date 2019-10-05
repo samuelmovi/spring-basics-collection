@@ -51,7 +51,7 @@ public class Controller {
         view.getRegisterButton().addActionListener(e -> createNew(view.getLastNameField().getText(), view.getFirstNameField().getText()));
     }
 
-    public void populate(){
+     void populate(){
         // add 5 entries to operators
         operatorRepository.save(new Operator("Jack", "Bauer"));
         operatorRepository.save(new Operator("Chloe", "O'Brian"));
@@ -63,8 +63,7 @@ public class Controller {
     public void createNew(String firstName, String lastName){
         operatorRepository.save(new Operator(firstName, lastName));
 
-        view.getLastNameField().setText("");
-        view.getFirstNameField().setText("");
+        view.clearNewOpFields();
 
         refreshModels();
     }
