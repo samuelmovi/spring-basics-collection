@@ -58,6 +58,9 @@
         <property name="deactivateOperativeTabTitle" value="Status"/>
         <property name="deleteOperativeTabTitle" value="Remove"/>
         <property name="columnNames" value="ID, Last Name, First Name, Status"/>
+		<!--<property name="firstNameLabelString" value="First Name: "/>
+		<property name="lastNameLabelString" value="Last Name: "/>
+		<property name="registerButtonLabelString" value="Register"/>-->
     </bean>
 
     <bean id="controller" class="samuelmovi.springGuiJpa.controller.Controller">

@@ -45,6 +45,10 @@ public class View {
     private TableRowSorter<TableModel> deleteOperativesSorter=new TableRowSorter<TableModel>();
 
     private String[] columnNames;
+    private String firstNameLabelString="First Name: ";
+    private String lastNameLabelString="Last Name: ";
+    private String registerButtonLabelString="Register";
+
 
     private JButton registerButton;
     private JButton deleteButton;
@@ -159,21 +163,21 @@ public class View {
         tabbedPane.addTab(registerNewOperativeTabTitle, registerNewOperativesTab);
 
         // add last name and first name fields, and button
-        JLabel firstNameLabel = new JLabel("First Name:");
+        JLabel firstNameLabel = new JLabel(this.firstNameLabelString);
         firstNameLabel.setBounds(25, 10, 100, 25);
         registerNewOperativesTab.add(firstNameLabel);
         firstNameField = new JTextField();
         firstNameField.setBounds(150,10, 100, 25);
         registerNewOperativesTab.add(firstNameField);
 
-        JLabel lastNameLabel = new JLabel("Last Name:");
+        JLabel lastNameLabel = new JLabel(lastNameLabelString);
         lastNameLabel.setBounds(25, 60, 100, 25);
         registerNewOperativesTab.add(lastNameLabel);
         lastNameField = new JTextField();
         lastNameField.setBounds(150,60, 100, 25);
         registerNewOperativesTab.add(lastNameField);
 
-        registerButton = new JButton("Register");
+        registerButton = new JButton(registerButtonLabelString);
         registerButton.setBounds(150, 180, 150, 25);
         registerNewOperativesTab.add(registerButton);
 

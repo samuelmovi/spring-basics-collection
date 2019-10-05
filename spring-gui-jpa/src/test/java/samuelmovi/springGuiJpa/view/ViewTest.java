@@ -30,7 +30,17 @@ public class ViewTest {
 
     @After
     public void after(){
+        view.getTabbedPane().removeAll();
+    }
 
+    @Test
+    public void testAllActive(){
+        // execute method
+        view.allActive();
+        // assert expected result:
+        Assert.assertNotNull(view.getAllActiveOperativesTab());
+        Assert.assertEquals(1, view.getTabbedPane().getComponentCount());
+        Assert.assertEquals(view.getAllActiveOperativesTabTitle(), view.getTabbedPane().getTitleAt(0));
     }
 
     @Test
@@ -42,5 +52,25 @@ public class ViewTest {
         Assert.assertEquals(1, view.getTabbedPane().getComponentCount());
         Assert.assertEquals(view.getAllOperativesTabTitle(), view.getTabbedPane().getTitleAt(0));
     }
+
+    @Test
+    public void testRegisterNew(){
+        // execute method
+        view.registerNew();
+        // assert expected result:
+        Assert.assertNotNull(view.getRegisterNewOperativesTab());
+        Assert.assertEquals(1, view.getTabbedPane().getComponentCount());
+        Assert.assertEquals(view.getRegisterNewOperativeTabTitle(), view.getTabbedPane().getTitleAt(0));
+    }
+
+
+
+    // test deactivate
+
+
+
+    // test delete
+
+
 
 }
