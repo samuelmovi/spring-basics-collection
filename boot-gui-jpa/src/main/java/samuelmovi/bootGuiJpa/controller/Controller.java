@@ -46,7 +46,7 @@ public class Controller {
             }
         });
         view.getDeleteButton().addActionListener(e -> deleteOperative());
-        view.getRegisterButton().addActionListener(e -> createNew());
+        view.getRegisterButton().addActionListener(e -> createNew(view.getLastNameField().getText(), view.getFirstNameField().getText()));
     }
 
     public void populate(){
@@ -59,9 +59,7 @@ public class Controller {
         }
     }
 
-    public void createNew(){
-        String firstName = view.getLastNameField().getText();
-        String lastName = view.getFirstNameField().getText();
+    public void createNew(String firstName, String lastName){
         operatorRepository.save(new Operator(firstName, lastName));
 
         view.getLastNameField().setText("");
@@ -118,5 +116,9 @@ public class Controller {
 
     public void setView(View view) {
         this.view = view;
+    }
+
+    public OperatorRepository getOperatorRepository() {
+        return operatorRepository;
     }
 }

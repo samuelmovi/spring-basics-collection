@@ -16,6 +16,7 @@ import java.util.List;
 @DataJpaTest
 @RunWith(SpringRunner.class)
 public class OperatorRepositoryTest {
+    // NO REAL REASON FOR THIS TEST AS IT TESTS SPRING'S CODE
 
     @Autowired
     OperatorRepository operatorRepository;

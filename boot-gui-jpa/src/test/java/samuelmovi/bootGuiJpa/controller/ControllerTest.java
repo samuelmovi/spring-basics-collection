@@ -3,6 +3,7 @@ package samuelmovi.bootGuiJpa.controller;
 import org.junit.Assert;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.junit4.SpringRunner;
 import samuelmovi.bootGuiJpa.model.Operator;
 import samuelmovi.bootGuiJpa.repo.OperatorRepository;
@@ -15,14 +16,15 @@ import samuelmovi.bootGuiJpa.view.View;
 
 import java.util.Optional;
 
-
+//@Import(TestConfig.class)
 @DataJpaTest
 @RunWith(SpringRunner.class)
 public class ControllerTest {
 
     @Autowired
     OperatorRepository operatorRepository;
-    Controller controller = new Controller();
+    // @Autowired
+    Controller controller; // = new Controller();
     @MockBean
     View view;
 
@@ -36,10 +38,10 @@ public class ControllerTest {
 
     @Before
     public void before(){
-        if(firstRun){
-            controller.setOperatorRepository(operatorRepository);
-            controller.setView(view);
-        }
+        // setup controller
+        this.controller = new Controller();
+        this.controller.setOperatorRepository(operatorRepository);
+        this. controller.setView(view);
 
         // FEED DATABASE
         System.out.println("[CtrlTest] Feeding database...");
@@ -61,7 +63,7 @@ public class ControllerTest {
     // test setID
 
     @Test
-    public void deleteOperative(){
+    public void testDeleteOperative(){
         // set operativeID
         Optional<Operator> optional = operatorRepository.findByFirstName(
                 operatorRepository.findAll().get(0).getFirstName()
@@ -78,7 +80,7 @@ public class ControllerTest {
     }
 
     @Test
-    public void deactivateOperative(){
+    public void testDeactivateOperative(){
         // set operativeID
         Optional<Operator> optional = operatorRepository.findByFirstName(
                 operatorRepository.findAll().get(0).getFirstName()
@@ -97,9 +99,17 @@ public class ControllerTest {
 
     //
 
-    // @Test
+    @Test
     public void testCreateNew(){
-
+        // check number of instances in db table
+        long before = operatorRepository.count();
+        // execute method
+        controller.createNew("first", "last");
+        // assert new number of instances in db table
+        Assert.assertEquals(before+1, operatorRepository.count());
+        // assert field values are as expected
+        Assert.assertNotNull(operatorRepository.findByLastNameAllIgnoringCase("LAST"));
+        Assert.assertTrue(operatorRepository.findByFirstNameAllIgnoringCase("asdfq123").isEmpty());
     }
 
 }
