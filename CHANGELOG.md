@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Create all missing tests
 - improve test properties settings
 - find way to set headless=false for boot-gui projects testing
+- find way to fake keyboard input for cli projects
 
 ## 2019-10-05
 ### Added
