@@ -16,11 +16,11 @@ import java.util.Optional;
 @Component
 public class Controller {
     @Autowired
-    OperatorRepository operatorRepository;
+    private OperatorRepository operatorRepository;
     @Autowired
-    View view;
+    private View view;
 
-    String operatorID;
+    private String operatorID;
 
     @Bean
     public void init(){
@@ -74,13 +74,12 @@ public class Controller {
     }
 
     public void deleteOperative(long id){
-        operatorRepository.deleteById(Long.valueOf(id));
-        // this should be enabled
-        //refreshModels();
+        operatorRepository.deleteById(id);
+        refreshModels();
     }
 
     public void deactivateOperative(long id){
-        Optional<Operator> optional = operatorRepository.findById(Long.valueOf(id));
+        Optional<Operator> optional = operatorRepository.findById(id);
         if (optional.isPresent()){
             Operator operator = optional.get();
             operator.setActive(false);
@@ -90,7 +89,7 @@ public class Controller {
     }
 
     public void refreshModels(){
-        view.fillModel(view.getAllOperativesModel(), (List<Operator>)operatorRepository.findAll());
+        view.fillModel(view.getAllOperativesModel(), operatorRepository.findAll());
         view.fillModel(view.getAllActiveOperativesModel(), operatorRepository.findAllByActive(true));
     }
 

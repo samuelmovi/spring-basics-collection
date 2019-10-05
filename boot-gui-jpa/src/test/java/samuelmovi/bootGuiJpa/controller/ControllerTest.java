@@ -124,10 +124,7 @@ public class ControllerTest {
         Assert.assertEquals(before - 1, operatorRepository.findAllByActive(true).size());
     }
 
-    // test refreshModels
-
-
-   // @Test
+    // @Test
     public void testCreateNew(){
         // check number of instances in db table
         long before = operatorRepository.count();
