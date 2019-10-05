@@ -19,9 +19,9 @@ import javax.swing.table.DefaultTableModel;
 public class ControllerTest {
 
     @Autowired
-    OperatorRepository operatorRepository;
+    private OperatorRepository operatorRepository;
     @Autowired
-    Controller controller;
+    private Controller controller;
 
 
     private String[][] employeeData = {
@@ -29,6 +29,8 @@ public class ControllerTest {
             {"Powers", "Austin"},
             {"Movi", "Sam"},
     };
+
+    private static boolean firstRun = true;
 
     @Before
     public void before(){
@@ -38,7 +40,10 @@ public class ControllerTest {
             Operator operator = new Operator(data[0], data[1]);
             operatorRepository.save(operator);
         }
-        controller.init();
+        if (firstRun){
+            controller.init();
+            firstRun = false;
+        }
     }
 
     @After

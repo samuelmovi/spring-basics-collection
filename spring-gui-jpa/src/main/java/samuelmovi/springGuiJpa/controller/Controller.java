@@ -14,10 +14,10 @@ import java.util.Optional;
 
 public class Controller {
     @Autowired
-    OperatorRepository operatorRepository;
-    View view;
+    private OperatorRepository operatorRepository;
+    private View view;
 
-    String operatorID;
+    private String operatorID;
 
     public Controller(View view){
         this.view = view;
