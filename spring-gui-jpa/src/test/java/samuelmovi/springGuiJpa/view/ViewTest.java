@@ -63,14 +63,25 @@ public class ViewTest {
         Assert.assertEquals(view.getRegisterNewOperativeTabTitle(), view.getTabbedPane().getTitleAt(0));
     }
 
+    @Test
+    public void testDeactivate(){
+        // execute method
+        view.deactivate();
+        // assert expected result:
+        Assert.assertNotNull(view.getDeactivateOperativesTab());
+        Assert.assertEquals(1, view.getTabbedPane().getComponentCount());
+        Assert.assertEquals(view.getDeactivateOperativeTabTitle(), view.getTabbedPane().getTitleAt(0));
+    }
 
-
-    // test deactivate
-
-
-
-    // test delete
-
+    @Test
+    public void testDelete(){
+        // execute method
+        view.delete();
+        // assert expected result:
+        Assert.assertNotNull(view.getDeleteOperativesTab());
+        Assert.assertEquals(1, view.getTabbedPane().getComponentCount());
+        Assert.assertEquals(view.getDeleteOperativeTabTitle(), view.getTabbedPane().getTitleAt(0));
+    }
 
 
 }

@@ -86,7 +86,7 @@ public class View {
         delete();
     }
 
-    public DefaultTableModel fillModel(DefaultTableModel model, List<Operator> list){
+    public void fillModel(DefaultTableModel model, List<Operator> list){
         model.setRowCount(0);
         for (Operator employee: list){
             Vector<String> vector = new Vector<String>();
@@ -97,7 +97,6 @@ public class View {
             model.addRow(vector);
             System.out.println(employee.toString());
         }
-        return model;
     }
 
     public void allOperatives(){
@@ -403,5 +402,21 @@ public class View {
 
     public void setTabbedPane(JTabbedPane tabbedPane) {
         this.tabbedPane = tabbedPane;
+    }
+
+    public JPanel getDeactivateOperativesTab() {
+        return deactivateOperativesTab;
+    }
+
+    public void setDeactivateOperativesTab(JPanel deactivateOperativesTab) {
+        this.deactivateOperativesTab = deactivateOperativesTab;
+    }
+
+    public JPanel getDeleteOperativesTab() {
+        return deleteOperativesTab;
+    }
+
+    public void setDeleteOperativesTab(JPanel deleteOperativesTab) {
+        this.deleteOperativesTab = deleteOperativesTab;
     }
 }
