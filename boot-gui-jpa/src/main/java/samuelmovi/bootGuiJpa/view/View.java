@@ -441,4 +441,12 @@ public class View {
     public String getDeleteOperativeTabTitle() {
         return deleteOperativeTabTitle;
     }
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public void setFrame(JFrame frame) {
+        this.frame = frame;
+    }
 }
