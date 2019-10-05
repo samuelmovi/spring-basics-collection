@@ -17,6 +17,7 @@ import java.util.Vector;
 @Component
 @ConfigurationProperties(prefix = "view")
 public class View {
+    private JFrame frame;
     private JPanel contentPane;
 
     private JPanel allOperativesTab;
@@ -60,7 +61,7 @@ public class View {
 
     public void render() {
 
-        JFrame frame = new JFrame(titleMessage);
+        frame = new JFrame(titleMessage);
         frame.setBounds(100, 100, 400, 300);
         frame.setResizable(false);
         frame.setVisible(true);
@@ -77,15 +78,14 @@ public class View {
         tabbedPane.setBounds(10, 10, 380, 250);
         contentPane.add(tabbedPane);
 
+    }
+
+    public void createContent(){
         allOperatives();
         allActive();
         registerNew();
         deactivate();
         delete();
-
-        allOperativesModel = fillModel(allOperativesModel, allOperatives);
-        allActiveOperativesModel = fillModel(allActiveOperativesModel, allActiveOperatives);
-
     }
 
     public DefaultTableModel fillModel(DefaultTableModel model, List<Operator> list){
@@ -388,5 +388,57 @@ public class View {
 
     public void setFirstNameField(JTextField firstNameField) {
         this.firstNameField = firstNameField;
+    }
+
+    public JPanel getRegisterNewOperativesTab() {
+        return registerNewOperativesTab;
+    }
+
+    public void setRegisterNewOperativesTab(JPanel registerNewOperativesTab) {
+        this.registerNewOperativesTab = registerNewOperativesTab;
+    }
+
+    public JPanel getDeactivateOperativesTab() {
+        return deactivateOperativesTab;
+    }
+
+    public void setDeactivateOperativesTab(JPanel deactivateOperativesTab) {
+        this.deactivateOperativesTab = deactivateOperativesTab;
+    }
+
+    public JPanel getDeleteOperativesTab() {
+        return deleteOperativesTab;
+    }
+
+    public void setDeleteOperativesTab(JPanel deleteOperativesTab) {
+        this.deleteOperativesTab = deleteOperativesTab;
+    }
+
+    public JTabbedPane getTabbedPane() {
+        return tabbedPane;
+    }
+
+    public void setTabbedPane(JTabbedPane tabbedPane) {
+        this.tabbedPane = tabbedPane;
+    }
+
+    public String getAllOperativesTabTitle() {
+        return allOperativesTabTitle;
+    }
+
+    public String getAllActiveOperativesTabTitle() {
+        return allActiveOperativesTabTitle;
+    }
+
+    public String getRegisterNewOperativeTabTitle() {
+        return registerNewOperativeTabTitle;
+    }
+
+    public String getDeactivateOperativeTabTitle() {
+        return deactivateOperativeTabTitle;
+    }
+
+    public String getDeleteOperativeTabTitle() {
+        return deleteOperativeTabTitle;
     }
 }

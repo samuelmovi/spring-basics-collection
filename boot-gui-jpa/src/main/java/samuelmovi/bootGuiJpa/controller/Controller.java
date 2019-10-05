@@ -28,11 +28,14 @@ public class Controller {
             populate();
         }
 
-        view.setAllOperatives((List<Operator>) operatorRepository.findAll());
-        view.setAllActiveOperatives(operatorRepository.findAllByActive(true));
-
         view.render();
+        view.createContent();
 
+        refreshModels();
+        controls();
+    }
+
+    public void controls(){
         // set controls
         view.getDeactivateOperativesTabTable().addMouseListener(new MouseAdapter() {
             @Override
@@ -51,7 +54,7 @@ public class Controller {
         view.getRegisterButton().addActionListener(e -> createNew(view.getLastNameField().getText(), view.getFirstNameField().getText()));
     }
 
-     void populate(){
+    public void populate(){
         // add 5 entries to operators
         operatorRepository.save(new Operator("Jack", "Bauer"));
         operatorRepository.save(new Operator("Chloe", "O'Brian"));
