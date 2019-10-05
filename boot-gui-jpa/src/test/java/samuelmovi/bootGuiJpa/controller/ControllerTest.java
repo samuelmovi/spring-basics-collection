@@ -2,7 +2,6 @@ package samuelmovi.bootGuiJpa.controller;
 
 import org.junit.Assert;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
