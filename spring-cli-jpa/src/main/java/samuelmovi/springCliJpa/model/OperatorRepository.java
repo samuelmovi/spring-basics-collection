@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 public interface OperatorRepository extends CrudRepository<Operator, Long> {
     Operator save(Operator operator);
 
+    List<Operator> findAll();
     List<Operator> findByLastNameAllIgnoringCase(String lastName);
     List<Operator> findByFirstNameAllIgnoringCase(String firstName);
     List<Operator> findByActive(boolean active);
