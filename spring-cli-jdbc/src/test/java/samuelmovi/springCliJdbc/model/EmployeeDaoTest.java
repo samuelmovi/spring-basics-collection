@@ -14,7 +14,6 @@ import java.util.List;
 
 @ContextConfiguration(locations = "classpath:Tests.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
-@DatabaseSetup("testDbSetup.xml")
 public class EmployeeDaoTest {
 
     @Autowired

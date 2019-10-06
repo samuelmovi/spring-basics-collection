@@ -9,13 +9,13 @@ import java.util.Scanner;
 public class App {
 
 
-    EmployeeDao employeeDao;
-    Scanner input;
+    private EmployeeDao employeeDao;
+    private List<Employee> employees;
+    private Scanner input;
 
     public App(EmployeeDao employeeDao) {
         this.employeeDao = employeeDao;
         this.input = new Scanner(System.in);
-        //input.useDelimiter("\n");
     }
 
     public void run() {
@@ -58,7 +58,6 @@ public class App {
 
 
     public void allEmployees() {
-        List<Employee> employees;
         employees = employeeDao.findAll();
         print("\n[#] All registered Operatives:");
         for(Employee e: employees) {
@@ -67,7 +66,6 @@ public class App {
     }
 
     public void activeEmployees() {
-        List<Employee> employees;
         employees = employeeDao.findAllActive();
         print("\n[#] All Active Operatives:");
         for(Employee e: employees) {
@@ -87,7 +85,6 @@ public class App {
     }
 
     public void deleteEmployee() {
-        List<Employee> employees;
         employees = employeeDao.findAll();
         print("\n[#] Choose ID to delete:");
         for(Employee e: employees) {
@@ -101,7 +98,6 @@ public class App {
     }
 
     public void setInactive(){
-        List<Employee> employees;
         employees = employeeDao.findAll();
         print("\n[#] Choose ID to deactivate:");
         for(Employee e: employees) {

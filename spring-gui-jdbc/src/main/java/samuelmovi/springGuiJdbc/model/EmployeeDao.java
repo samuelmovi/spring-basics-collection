@@ -100,8 +100,7 @@ public class EmployeeDao {
     }
 
     public void deleteAll() {
-        String query = " delete from employess";
-        jdbcTemplate.update(query);
+		jdbcTemplate.execute("truncate table employees");
     }
 
     public int setInactive(long index){

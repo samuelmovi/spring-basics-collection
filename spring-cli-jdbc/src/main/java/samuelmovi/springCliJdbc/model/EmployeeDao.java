@@ -16,14 +16,6 @@ public class EmployeeDao {
 
     private JdbcTemplate jdbcTemplate;
 
-    public JdbcTemplate getJdbcTemplate() {
-        return jdbcTemplate;
-    }
-
-    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-        jdbcTemplate.execute(schema);    }
-
     public void execute(String query){
         jdbcTemplate.execute(query);
     }
@@ -50,20 +42,17 @@ public class EmployeeDao {
 
     public List<Employee> findAllActive(){
         String query = "select * from employees where active=true";
-        List <Employee> employee = jdbcTemplate.query(query, new EmployeeMapper());
-        return employee;
+        return jdbcTemplate.query(query, new EmployeeMapper());
     }
 
     public List<Employee> findAll(){
         String query = "select * from employees";
-        List <Employee> employee = jdbcTemplate.query(query, new EmployeeMapper());
-        return employee;
+        return jdbcTemplate.query(query, new EmployeeMapper());
     }
 
     public List<Employee> findByField(String field, String value){
         String query = "select * from employees where "+field+"='"+value+"'";
-        List <Employee> employee = jdbcTemplate.query(query, new EmployeeMapper());
-        return employee;
+        return jdbcTemplate.query(query, new EmployeeMapper());
     }
 
     public List<Employee> findByField(String field, String value, boolean isNumber){
@@ -74,8 +63,7 @@ public class EmployeeDao {
         else {
             query += "'"+value+"'";
         }
-        List <Employee> employee = jdbcTemplate.query(query, new EmployeeMapper());
-        return employee;
+        return jdbcTemplate.query(query, new EmployeeMapper());
     }
 
     public int update(Employee employee) {
