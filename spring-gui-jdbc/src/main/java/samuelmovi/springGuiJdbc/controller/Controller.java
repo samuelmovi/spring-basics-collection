@@ -11,10 +11,9 @@ import java.awt.event.MouseEvent;
 
 public class Controller {
 
-    EmployeeDao employeeDao;
-    View view;
-
-    String operatorID;
+    private EmployeeDao employeeDao;
+    private View view;
+    private String operatorID;
 
     public Controller(EmployeeDao employeeDao, View view){
         this.employeeDao = employeeDao;
@@ -22,11 +21,20 @@ public class Controller {
     }
 
     public void init(){
+        if( employeeDao.findAll().size()== 0){
+            populate();
+        }
         view.setAllOperatives(employeeDao.findAll());
         view.setAllActiveOperatives(employeeDao.findAllActive());
 
         view.render();
+        view.createContent();
 
+        refreshModels();
+        controls();
+    }
+
+    public void controls(){
         // set controls
         view.getDeactivateOperativesTabTable().addMouseListener(new MouseAdapter() {
             @Override
@@ -42,13 +50,21 @@ public class Controller {
             }
         });
         view.getDeleteButton().addActionListener(e -> deleteOperative());
-        view.getRegisterButton().addActionListener(e -> createNew());
+        view.getRegisterButton().addActionListener(e -> createNew(view.getLastNameField().getText(), view.getFirstNameField().getText()));
     }
 
-    public void createNew(){
+    public void populate(){
+        employeeDao.save(new Employee("Jack", "Bauer"));
+        employeeDao.save(new Employee("Chloe", "O'Brian"));
+        employeeDao.save(new Employee("Kim", "Bauer"));
+        employeeDao.save(new Employee("David", "Palmer"));
+        employeeDao.save(new Employee("Michelle", "Dessler"));
+    }
+
+    public void createNew(String lastName, String firstName){
         Employee employee = new Employee();
-        employee.setFirstName(view.getLastNameField().getText());
-        employee.setLastName(view.getFirstNameField().getText());
+        employee.setFirstName(firstName);
+        employee.setLastName(lastName);
         employeeDao.save(employee);
 
         view.getLastNameField().setText("");
@@ -78,5 +94,31 @@ public class Controller {
     public void refreshModels(){
         view.fillModel(view.getAllOperativesModel(), employeeDao.findAll());
         view.fillModel(view.getAllActiveOperativesModel(), employeeDao.findAllActive());
+    }
+
+    // G & S
+
+    public EmployeeDao getEmployeeDao() {
+        return employeeDao;
+    }
+
+    public void setEmployeeDao(EmployeeDao employeeDao) {
+        this.employeeDao = employeeDao;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public void setView(View view) {
+        this.view = view;
+    }
+
+    public String getOperatorID() {
+        return operatorID;
+    }
+
+    public void setOperatorID(String operatorID) {
+        this.operatorID = operatorID;
     }
 }

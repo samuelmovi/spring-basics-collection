@@ -61,6 +61,12 @@ public class EmployeeDao {
         return employee;
     }
 
+    public List<Employee> findByActive(boolean active){
+        String query = "select * from employees where active="+active;
+        List <Employee> activeEmployees = jdbcTemplate.query(query, new EmployeeMapper());
+        return activeEmployees;
+    }
+
     public List<Employee> findByField(String field, String value){
         String query = "select * from employees where "+field+"='"+value+"'";
         List <Employee> employee = jdbcTemplate.query(query, new EmployeeMapper());
@@ -91,6 +97,11 @@ public class EmployeeDao {
     public int deleteById(long index) {
         String query="delete from employees where id="+index;
         return jdbcTemplate.update(query);
+    }
+
+    public void deleteAll() {
+        String query = " delete from employess";
+        jdbcTemplate.update(query);
     }
 
     public int setInactive(long index){

@@ -14,6 +14,7 @@ import samuelmovi.springGuiJdbc.model.Employee;
 
 
 public class View {
+    private JFrame frame;
     private JPanel contentPane;
 
     private JPanel allOperativesTab;
@@ -45,6 +46,9 @@ public class View {
     private TableRowSorter<TableModel> deleteOperativesSorter=new TableRowSorter<TableModel>();
 
     private String[] columnNames;
+    private  String firstNameLabelString="First Name: ";
+    private String lastNameLabelString="Last Name: ";
+    private String registerButtonLabelString="Register";
 
     private List<Employee> allOperatives;
     private List<Employee> allActiveOperatives;
@@ -56,9 +60,7 @@ public class View {
     private JTextField firstNameField;
 
     public void render() {
-
-
-        JFrame frame = new JFrame(titleMessage);
+        frame = new JFrame(titleMessage);
         frame.setBounds(100, 100, 400, 300);
         frame.setResizable(false);
         frame.setVisible(true);
@@ -74,19 +76,17 @@ public class View {
         tabbedPane = new JTabbedPane(JTabbedPane.TOP);
         tabbedPane.setBounds(10, 10, 380, 250);
         contentPane.add(tabbedPane);
+    }
 
+    public void createContent(){
         allOperatives();
         allActive();
         registerNew();
         deactivate();
         delete();
-
-        allOperativesModel = fillModel(allOperativesModel, allOperatives);
-        allActiveOperativesModel = fillModel(allActiveOperativesModel, allActiveOperatives);
-
     }
 
-    public DefaultTableModel fillModel(DefaultTableModel model, List<Employee> list){
+    public void fillModel(DefaultTableModel model, List<Employee> list){
         model.setRowCount(0);
         for (Employee employee: list){
             Vector<String> vector = new Vector<String>();
@@ -97,7 +97,6 @@ public class View {
             model.addRow(vector);
             System.out.println(employee.toString());
         }
-        return model;
     }
 
     public void allOperatives(){
@@ -163,21 +162,21 @@ public class View {
         tabbedPane.addTab(registerNewOperativeTabTitle, registerNewOperativesTab);
 
         // add last name and first name fields, and button
-        JLabel firstNameLabel = new JLabel("First Name:");
+        JLabel firstNameLabel = new JLabel(firstNameLabelString);
         firstNameLabel.setBounds(25, 10, 100, 25);
         registerNewOperativesTab.add(firstNameLabel);
         firstNameField = new JTextField();
         firstNameField.setBounds(150,10, 100, 25);
         registerNewOperativesTab.add(firstNameField);
 
-        JLabel lastNameLabel = new JLabel("Last Name:");
+        JLabel lastNameLabel = new JLabel(lastNameLabelString);
         lastNameLabel.setBounds(25, 60, 100, 25);
         registerNewOperativesTab.add(lastNameLabel);
         lastNameField = new JTextField();
         lastNameField.setBounds(150,60, 100, 25);
         registerNewOperativesTab.add(lastNameField);
 
-        registerButton = new JButton("Register");
+        registerButton = new JButton(registerButtonLabelString);
         registerButton.setBounds(150, 180, 150, 25);
         registerNewOperativesTab.add(registerButton);
 
@@ -382,5 +381,73 @@ public class View {
 
     public void setFirstNameField(JTextField firstNameField) {
         this.firstNameField = firstNameField;
+    }
+
+    public JFrame getFrame() {
+        return frame;
+    }
+
+    public void setFrame(JFrame frame) {
+        this.frame = frame;
+    }
+
+    public JPanel getRegisterNewOperativesTab() {
+        return registerNewOperativesTab;
+    }
+
+    public void setRegisterNewOperativesTab(JPanel registerNewOperativesTab) {
+        this.registerNewOperativesTab = registerNewOperativesTab;
+    }
+
+    public JPanel getDeactivateOperativesTab() {
+        return deactivateOperativesTab;
+    }
+
+    public void setDeactivateOperativesTab(JPanel deactivateOperativesTab) {
+        this.deactivateOperativesTab = deactivateOperativesTab;
+    }
+
+    public JPanel getDeleteOperativesTab() {
+        return deleteOperativesTab;
+    }
+
+    public void setDeleteOperativesTab(JPanel deleteOperativesTab) {
+        this.deleteOperativesTab = deleteOperativesTab;
+    }
+
+    public JTabbedPane getTabbedPane() {
+        return tabbedPane;
+    }
+
+    public void setTabbedPane(JTabbedPane tabbedPane) {
+        this.tabbedPane = tabbedPane;
+    }
+
+    public String getAllOperativesTabTitle() {
+        return allOperativesTabTitle;
+    }
+
+    public String getAllActiveOperativesTabTitle() {
+        return allActiveOperativesTabTitle;
+    }
+
+    public String getRegisterNewOperativeTabTitle() {
+        return registerNewOperativeTabTitle;
+    }
+
+    public String getDeactivateOperativeTabTitle() {
+        return deactivateOperativeTabTitle;
+    }
+
+    public String getDeleteOperativeTabTitle() {
+        return deleteOperativeTabTitle;
+    }
+
+    public JTable getAllOperativesTabTable() {
+        return allOperativesTabTable;
+    }
+
+    public void setAllOperativesTabTable(JTable allOperativesTabTable) {
+        this.allOperativesTabTable = allOperativesTabTable;
     }
 }

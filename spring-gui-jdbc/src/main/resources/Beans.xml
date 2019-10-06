@@ -10,12 +10,12 @@
 	</bean>
 
 	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
-		<property name="dataSource" ref="h2"></property>
+		<property name="dataSource" ref="h2"/>
 	</bean>
 	
 			<!--  MODEL -->
 	<bean id="employeeDao" class="samuelmovi.springGuiJdbc.model.EmployeeDao">
-		<property name="jdbcTemplate" ref="jdbcTemplate"></property>  
+		<property name="jdbcTemplate" ref="jdbcTemplate"/>
 	</bean>
 	
 	<!-- samuelmovi.springGuiJdbc.view -->
