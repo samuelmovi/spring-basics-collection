@@ -9,5 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface OperatorRepository extends CrudRepository<Operator, Long> {
 
+    List<Operator> findAll();
     List<Operator> findByActive(boolean active);
 }

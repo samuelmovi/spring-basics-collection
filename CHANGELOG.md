@@ -15,6 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 - refactoring spring-cli-jdbc for MVC pattern
 - refactoring spring-cli-jpa for MVC pattern
+- refactoring boot-cli-jpa for MVC pattern
 
 ## 2019-10-05
 ### Added
