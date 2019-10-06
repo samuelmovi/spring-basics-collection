@@ -7,8 +7,7 @@ import java.util.Scanner;
 
 
 public class App {
-
-
+    
     private EmployeeDao employeeDao;
     private List<Employee> employees;
     private Scanner input;
