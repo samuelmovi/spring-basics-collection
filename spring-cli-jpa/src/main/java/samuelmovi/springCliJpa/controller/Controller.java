@@ -10,13 +10,11 @@ import java.util.Optional;
 public class Controller {
 
     @Autowired
-    OperatorRepository operatorRepository;
+    private OperatorRepository operatorRepository;
     @Autowired
-    View view;
+    private View view;
 
     private boolean done = false;
-    private int choice;
-    private String[] fullName = new String[2];
 
     public Controller(){
 
@@ -24,14 +22,14 @@ public class Controller {
 
     public void run(){
         while (!done){
-            choice = view.showMenu();
+            int choice = view.showMenu();
 
             if (choice == 1) {
                 view.showAllEmployees(operatorRepository.findAll());
             } else if (choice == 2) {
                 view.showActiveEmployees(operatorRepository.findByActive(true));
             } else if (choice == 3) {
-                fullName = view.newEmployee();
+                String[] fullName = view.newEmployee();
                 operatorRepository.save(new Operator(fullName[0], fullName[1]));
             } else if (choice == 4) {
                 int id = view.deleteEmployee(operatorRepository.findAll());
