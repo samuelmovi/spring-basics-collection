@@ -17,8 +17,12 @@
 		<property name="jdbcTemplate" ref="jdbcTemplate"></property>  
 	</bean>
 
-	<bean id="app" class="samuelmovi.springCliJdbc.app.App">
-		<constructor-arg ref="employee_dao"></constructor-arg>
+	<bean id="view" class="samuelmovi.springCliJdbc.view.View"/>
+
+
+	<bean id="controller" class="samuelmovi.springCliJdbc.controller.Controller">
+		<constructor-arg ref="employee_dao"/>
+		<constructor-arg ref="view"/>
 	</bean>
 
 

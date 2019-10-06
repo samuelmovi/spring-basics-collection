@@ -25,6 +25,11 @@ public class EmployeeDao {
         return jdbcTemplate.update(query);
     }
 
+    public int save(String lastName, String firstName) {
+        String query="insert into employees(last_name, first_name, active) values( '" + lastName+"','"+ firstName+"',true)";
+        return jdbcTemplate.update(query);
+    }
+
     public Employee find(Employee employee) {
         String query = "select * from employees where ";
         query += " first_name='"+employee.getFirstName()+"',";
