@@ -21,7 +21,7 @@ public class EmployeeDao {
     }
 
     public int save(Employee employee) {
-        String query="insert into employees(last_name, first_name, active) values( '" + employee.getLastName()+"','"+ employee.getFirstName()+"',true)";
+        String query="insert into employees(last_name, first_name, active) values( '" + employee.getLastName()+"','"+ employee.getFirstName() + "',true)";
         return jdbcTemplate.update(query);
     }
 
@@ -98,5 +98,6 @@ public class EmployeeDao {
 
     public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
+        this.jdbcTemplate.update(schema);
     }
 }

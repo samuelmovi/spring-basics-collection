@@ -1,14 +1,14 @@
 package samuelmovi.springCliJdbc.model;
 
-import com.github.springtestdbunit.annotation.DatabaseSetup;
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.junit.Test;
 
-import org.springframework.test.annotation.Rollback;
 
 import java.util.List;
 
@@ -25,17 +25,24 @@ public class EmployeeDaoTest {
             {"Movi", "Sam"},
     };
 
-
-    @Test
-    public void testSave(){
-        employeeDao.execute("truncate table employees");
+    @Before
+    public void before(){
         // FEED DATABASE
-        System.out.println("[#] Feeding database...");
         for (String[] data: employeeData){
             Employee employee = new Employee(data[0], data[1]);
             employeeDao.save(employee);
         }
+    }
 
+    @After
+    public void after(){
+        // CLEAR DATABASE
+        employeeDao.execute("truncate table employees");
+    }
+
+
+    @Test
+    public void testSave(){
         // SAVE NEW EMPLOYEE
         Employee employee = new Employee("LAST", "FIRST");
         employeeDao.save(employee);
@@ -46,37 +53,22 @@ public class EmployeeDaoTest {
 
     @Test
     public void testDeleteById(){
-        employeeDao.execute("truncate table employees");
-        // FEED DATABASE
-        for (String[] data: employeeData){
-            Employee employee = new Employee(data[0], data[1]);
-            employeeDao.save(employee);
-        }
-
         // DELETE ONE EMPLOYEE
         List<Employee> allEmployees = employeeDao.findAll();
-
-        if (employeeDao.deleteById(allEmployees.get(1).getId()) ==1){
+        long id = employeeDao.deleteById(allEmployees.get(1).getId());
+        if (id == 1){
             allEmployees = employeeDao.findAll();
             Assert.assertEquals(employeeData.length - 1, allEmployees.size());
         }
         else{
             // raise exception here
-            System.out.println("[!!] No employee with id 1 ");
+            System.out.println("[!!] No employee with id: "+id);
         }
 
     }
 
     @Test
-    @Rollback(true)
     public void testFindById(){
-        employeeDao.execute("truncate table employees");
-        // FEED DATABASE
-        for (String[] data: employeeData){
-            Employee employee = new Employee(data[0], data[1]);
-            employeeDao.save(employee);
-        }
-
         // FIND BY ID
         List<Employee> allEmployees = employeeDao.findAll();
         Employee employee = employeeDao.findById(allEmployees.get(1).getId());
@@ -85,14 +77,6 @@ public class EmployeeDaoTest {
 
     @Test
     public void testFindAllActive(){
-        employeeDao.execute("truncate table employees");
-
-        // FEED DATABASE
-        for (String[] data: employeeData){
-            Employee employee = new Employee(data[0], data[1]);
-            employeeDao.save(employee);
-        }
-
         // SET 1 EMPLOYEE AS INACTIVE
         List<Employee> allEmployees = employeeDao.findAll();
         Employee employee = employeeDao.findById(allEmployees.get(1).getId());
@@ -105,14 +89,6 @@ public class EmployeeDaoTest {
 
     @Test
     public void testFindAll(){
-        employeeDao.execute("truncate table employees");
-
-        // FEED DATABASE
-        for (String[] data: employeeData){
-            Employee employee = new Employee(data[0], data[1]);
-            employeeDao.save(employee);
-        }
-
         // FIND ALL
         List<Employee> allEmployees = employeeDao.findAll();
 
@@ -121,14 +97,6 @@ public class EmployeeDaoTest {
 
     @Test
     public void testSetInactive(){
-        employeeDao.execute("delete from employees");
-
-        // FEED DATABASE
-        for (String[] data: employeeData){
-            Employee employee = new Employee(data[0], data[1]);
-            employeeDao.save(employee);
-        }
-
         // SET 1 EMPLOYEE AS INACTIVE
         List<Employee> allEmployees = employeeDao.findAll();
         Employee employee = employeeDao.findById(allEmployees.get(1).getId());
