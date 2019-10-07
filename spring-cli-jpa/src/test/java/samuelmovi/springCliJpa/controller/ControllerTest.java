@@ -26,8 +26,8 @@ public class ControllerTest {
     @Autowired
     private OperatorRepository operatorRepository;
     View mockView;
-    @Mock
-    Object mockInput;
+    //@Mock
+    //private Scanner mockInput = new Scanner(System.in);
     @Autowired
     Controller controller;
 
@@ -40,8 +40,9 @@ public class ControllerTest {
     @Before
     public void before(){
         mockView = Mockito.mock(View.class);
+        //mockInput = Mockito.mock(Scanner.class);
         controller.setView(mockView);
-        controller.setInput((Scanner)mockInput);
+        //controller.setInput((Scanner)mockInput);
         controller.setOperatorRepository(operatorRepository);
         controller.setDone(true);
         // FEED DATABASE
@@ -50,6 +51,7 @@ public class ControllerTest {
             Operator operator = new Operator(data[0], data[1]);
             operatorRepository.save(operator);
         }
+
     }
 
     @After
@@ -73,6 +75,34 @@ public class ControllerTest {
         controller.run();
         // check results
         Mockito.verify(mockView, Mockito.times(1)).showMenu();
+    }
+
+    // @Test
+    public void testShowAll(){
+        // test show all operators
+        System.out.println("[#] test show all operators ...");
+        // prepare input
+        // Mockito.when(mockInput.nextLine()).then(invocationOnMock -> 1);
+
+        // run controller
+        controller.run();
+        // check results
+        Mockito.verify(mockView, Mockito.times(1)).showMenu();
+        Mockito.verify(mockView, Mockito.times(1)).showAllEmployees(operatorRepository.findAll());
+    }
+
+    // @Test
+    public void testShowAllActive(){
+        // test show all operators
+        System.out.println("[#] test show all active operators...");
+        // prepare input
+        String input = "2";
+        InputStream in = new ByteArrayInputStream(input.getBytes());
+        System.setIn(in);
+        // run controller
+        controller.run();
+        // check results
+        Mockito.verify(mockView, Mockito.times(1)).showActiveEmployees(operatorRepository.findByActive(true));
     }
 
 }

@@ -8,13 +8,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Create all missing tests
 - improve test properties settings
 - find way to set headless=false for boot-gui projects testing
-- find way to fake keyboard input for cli projects
-- refactor CLI projects in MVC
+- find way to create keyboard input for cli projects testing
+- find way to mock Scanner class
 
 ## 2019-10-07
 ### Added
 - testing for spring-cli-jdbc controller
-- testing for spring-cli-jpa controller
+- testing for spring-cli-jpa
 
 ### Fixed
 - regression in spring-cli-jdbc due to refactoring

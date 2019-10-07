@@ -28,6 +28,7 @@ public class OperatorRepositoryTest {
 
     @Before
     public void before(){
+        operatorRepository.deleteAll();
         // FEED DATABASE
         System.out.println("[RepoTest] Feeding database...");
         for (String[] data: employeeData){
@@ -47,7 +48,7 @@ public class OperatorRepositoryTest {
     public void testFindByActive(){
         // FIND ACTIVE
         List<Operator> activeOperators = operatorRepository.findByActive(true);
-        Assert.assertEquals(3, activeOperators.size());
+        Assert.assertEquals(employeeData.length, activeOperators.size());
     }
 
 

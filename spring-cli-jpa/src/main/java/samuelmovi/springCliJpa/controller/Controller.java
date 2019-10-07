@@ -70,7 +70,6 @@ public class Controller {
             catch(Exception e){
                 System.out.println("[!!!] Stop messing around");
             }
-
         }
         while (!done);
     }
