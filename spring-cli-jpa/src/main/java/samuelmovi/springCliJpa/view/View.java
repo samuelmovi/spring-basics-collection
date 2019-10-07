@@ -1,5 +1,6 @@
 package samuelmovi.springCliJpa.view;
 
+
 import samuelmovi.springCliJpa.model.Operator;
 
 import java.util.List;

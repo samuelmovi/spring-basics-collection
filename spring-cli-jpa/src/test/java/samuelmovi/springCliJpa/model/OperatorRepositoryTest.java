@@ -12,6 +12,7 @@ import org.junit.Assert;
 
 import java.util.List;
 
+
 @ContextConfiguration(locations = "classpath:Tests.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class OperatorRepositoryTest {

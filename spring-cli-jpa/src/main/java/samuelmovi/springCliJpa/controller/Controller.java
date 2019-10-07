@@ -16,9 +16,6 @@ public class Controller {
 
     private boolean done = false;
 
-    public Controller(){
-
-    }
 
     public void run(){
         while (!done){

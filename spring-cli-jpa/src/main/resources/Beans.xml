@@ -49,6 +49,7 @@
 
 	<context:component-scan base-package="samuelmovi.springCliJpa.model" />
 
+	<bean id="view" class="samuelmovi.springCliJpa.view.View"/>
 	<bean id="controller" class="samuelmovi.springCliJpa.controller.Controller"/>
 
 </beans>
