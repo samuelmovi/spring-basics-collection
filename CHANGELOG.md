@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - find way to fake keyboard input for cli projects
 - refactor CLI projects in MVC
 
+## 2019-10-07
+### Fixed
+- regression in spring-cli-jdbc due to refactoring
+
 ## 2019-10-06
 ### Changed
 - refactoring spring-cli-jdbc for MVC pattern

@@ -89,4 +89,14 @@ public class EmployeeDao {
         String query = "update employees set active=false where id="+index;
         return jdbcTemplate.update(query);
     }
+
+    // G & S
+
+    public JdbcTemplate getJdbcTemplate() {
+        return jdbcTemplate;
+    }
+
+    public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+        this.jdbcTemplate = jdbcTemplate;
+    }
 }

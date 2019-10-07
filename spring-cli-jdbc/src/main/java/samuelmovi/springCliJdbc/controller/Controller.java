@@ -6,17 +6,16 @@ import samuelmovi.springCliJdbc.view.View;
 
 public class Controller {
 
-    @Autowired
     EmployeeDao employeeDao;
-    @Autowired
     View view;
 
     private boolean done = false;
     private int choice;
     private String[] fullName = new String[2];
 
-    public Controller(){
-
+    public Controller(EmployeeDao employeeDao, View view){
+        this.employeeDao = employeeDao;
+        this.view = view;
     }
 
     public void run(){
