@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## 2019-10-07
 ### Added
 - testing for spring-cli-jdbc controller
+- testing for spring-cli-jpa controller
 
 ### Fixed
 - regression in spring-cli-jdbc due to refactoring

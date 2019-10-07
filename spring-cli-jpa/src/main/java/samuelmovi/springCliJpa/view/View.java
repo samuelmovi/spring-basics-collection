@@ -15,7 +15,7 @@ public class View {
         this.input = new Scanner(System.in);
     }
 
-    public int showMenu(){
+    public void showMenu(){
         print("\n[#] Choose an option:");
         print("\t[1] All Operatives");
         print("\t[2] All Active Operatives");
@@ -24,7 +24,6 @@ public class View {
         print("\t[5] Set Operative inactive");
         print("\t[0] Exit");
         System.out.print("\n[?]: ");
-        return Integer.parseInt(input.nextLine());
     }
 
     public void showAllEmployees(List<Operator> allEmployees){
