@@ -239,6 +239,11 @@ public class View {
         tabbedPane.addTab(deleteOperativeTabTitle, deleteOperativesTab);
     }
 
+    public void clearNewOperatorFields(){
+        lastNameField.setText("");
+        firstNameField.setText("");
+    }
+
 
     // SETTERS AND GETTERS
     public void setTitleMessage(String titleMessage) {

@@ -120,4 +120,18 @@ public class ViewTest {
         Assert.assertEquals(operatorData.length, testModel.getRowCount());
     }
 
+    @Test
+    public void testClearNewEmployeeFields(){
+        String testString = "REFFEqREWFqweewqr";
+        // set value of fields
+        view.getFirstNameField().setText(testString);
+        view.getLastNameField().setText(testString);
+        // execute method
+        view.clearNewOperatorFields();
+        // assert expected results
+        Assert.assertEquals("", view.getFirstNameField().getText());
+        Assert.assertEquals("", view.getLastNameField().getText());
+
+    }
+
 }

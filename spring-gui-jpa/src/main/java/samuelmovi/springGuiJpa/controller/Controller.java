@@ -64,8 +64,7 @@ public class Controller {
 
     public void createNew(String lastName, String firstName){
         operatorRepository.save(new Operator(firstName, lastName));
-        view.getLastNameField().setText("");
-        view.getFirstNameField().setText("");
+        view.clearNewOperatorFields();
         refreshModels();
     }
 
@@ -76,6 +75,7 @@ public class Controller {
     public void deleteOperative(){
         if (operatorID != null){
             operatorRepository.deleteById(Long.valueOf(operatorID));
+            operatorID = null;
         }
         refreshModels();
     }
@@ -88,6 +88,7 @@ public class Controller {
                 operator.setActive(false);
                 operatorRepository.save(operator);
             }
+            operatorID = null;
         }
         refreshModels();
     }
