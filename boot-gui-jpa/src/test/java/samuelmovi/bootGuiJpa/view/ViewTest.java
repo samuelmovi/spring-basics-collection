@@ -11,11 +11,11 @@ import samuelmovi.bootGuiJpa.repo.OperatorRepository;
 
 import javax.swing.table.DefaultTableModel;
 
-// @DataJpaTest
-// @RunWith(SpringRunner.class)
+//@DataJpaTest
+//@RunWith(SpringRunner.class)
 public class ViewTest {
 
-    /*
+/*
     private View view = new View();
     @Autowired
     private OperatorRepository operatorRepository;
@@ -41,6 +41,12 @@ public class ViewTest {
             firstRun = false;
         }
 
+        // FEED DATABASE
+        System.out.println("[CtrlTest] Feeding database...");
+        for (String[] data: operatorData){
+            Operator operator = new Operator(data[0], data[1]);
+            operatorRepository.save(operator);
+        }
     }
 
     @After
