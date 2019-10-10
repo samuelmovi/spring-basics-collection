@@ -39,14 +39,14 @@ public class Controller {
         view.getDeactivateOperativesTabTable().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent arg0){
-                setID(view.getDeactivateOperativesTabTable());
+                selectedEmployee(view.getDeactivateOperativesTabTable());
             }
         });
         view.getDeactivateButton().addActionListener(e -> deactivateOperative());
         view.getDeleteOperativesTabTable().addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent arg0){
-                setID(view.getDeleteOperativesTabTable());
+                selectedEmployee(view.getDeleteOperativesTabTable());
             }
         });
         view.getDeleteButton().addActionListener(e -> deleteOperative());
@@ -55,7 +55,7 @@ public class Controller {
 
     public void populate(){
         employeeDao.save(new Employee("Jack", "Bauer"));
-        employeeDao.save(new Employee("Chloe", "O'Brian"));
+        employeeDao.save(new Employee("Chloe", "OBrian"));
         employeeDao.save(new Employee("Kim", "Bauer"));
         employeeDao.save(new Employee("David", "Palmer"));
         employeeDao.save(new Employee("Michelle", "Dessler"));
@@ -67,19 +67,19 @@ public class Controller {
         employee.setLastName(lastName);
         employeeDao.save(employee);
 
-        view.getLastNameField().setText("");
-        view.getFirstNameField().setText("");
+        view.clearNewEMployeeFields();
 
         refreshModels();
     }
 
-    public void setID(JTable table){
+    public void selectedEmployee(JTable table){
         operatorID = String.valueOf(table.getValueAt(table.getSelectedRow(),0));
     }
 
     public void deleteOperative(){
         if (operatorID != null){
             employeeDao.deleteById(Long.valueOf(operatorID));
+            operatorID = null;
         }
         refreshModels();
     }
@@ -87,6 +87,7 @@ public class Controller {
     public void deactivateOperative(){
         if (operatorID != null){
             employeeDao.setInactive(Long.valueOf(operatorID));
+            operatorID = null;
         }
         refreshModels();
     }

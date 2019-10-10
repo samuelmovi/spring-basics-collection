@@ -34,6 +34,7 @@ public class ControllerTest {
 
     @Before
     public void before(){
+        employeeDao.deleteAll();
         // FEED DATABASE
         System.out.println("[CtrlTest] Feeding database...");
         for (String[] data: employeeData){
@@ -89,7 +90,7 @@ public class ControllerTest {
         // set row as active
         testTable.setRowSelectionInterval(0,0);
         // execute method
-        controller.setID(testTable);
+        controller.selectedEmployee(testTable);
         // assert expected result
         Assert.assertEquals(testValue, controller.getOperatorID());
 

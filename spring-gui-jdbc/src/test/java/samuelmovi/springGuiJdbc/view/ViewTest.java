@@ -28,15 +28,11 @@ public class ViewTest {
             {"Movi", "Sam"},
     };
 
-    private static boolean firstRun = true;
 
     @Before
     public void before(){
-        if (firstRun){
-            view.render();
-            firstRun = false;
-        }
-
+        employeeDao.deleteAll();
+        view.render();
     }
 
     @After
@@ -117,5 +113,19 @@ public class ViewTest {
         view.fillModel(testModel, employeeDao.findAll());
         // assert expected state of model
         Assert.assertEquals(operatorData.length, testModel.getRowCount());
+    }
+
+    @Test
+    public void testClearNewEmployeeFields(){
+        String testString = "REFFEqREWFqweewqr";
+        // set value of fields
+        view.getFirstNameField().setText(testString);
+        view.getLastNameField().setText(testString);
+        // execute method
+        view.clearNewEMployeeFields();
+        // assert expected results
+        Assert.assertEquals("", view.getFirstNameField().getText());
+        Assert.assertEquals("", view.getLastNameField().getText());
+
     }
 }
