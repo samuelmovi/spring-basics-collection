@@ -15,6 +15,7 @@ import samuelmovi.springGuiJpa.view.View;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
+import java.util.Optional;
 
 @ContextConfiguration(locations = "classpath:Tests.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -22,10 +23,9 @@ public class ControllerTest {
 
     @Autowired
     private OperatorRepository operatorRepository;
-    @Autowired
-    private Controller controller;
-    View view;
 
+    private Controller controller;
+    private View mockView;
 
     private String[][] employeeData = {
             {"Bauer", "Jack"},
@@ -44,8 +44,10 @@ public class ControllerTest {
             operatorRepository.save(operator);
         }
 
-        view = Mockito.mock(View.class);
-        controller.setView(view);
+        mockView = Mockito.mock(View.class);
+        controller = new Controller();
+        controller.setView(mockView);
+        controller.setOperatorRepository(operatorRepository);
     }
 
     @After
@@ -74,6 +76,7 @@ public class ControllerTest {
         // assert field values are as expected
         Assert.assertNotNull(operatorRepository.findByLastNameAllIgnoringCase("LAST"));
         Assert.assertTrue(operatorRepository.findByFirstNameAllIgnoringCase("asdfq123").isEmpty());
+        Mockito.verify(mockView, Mockito.times(1)).clearNewOperatorFields();
     }
 
     @Test
@@ -92,7 +95,6 @@ public class ControllerTest {
         controller.setID(testTable);
         // assert expected result
         Assert.assertEquals(testValue, controller.getOperatorID());
-
     }
 
     @Test
@@ -107,6 +109,8 @@ public class ControllerTest {
         // assert database table has one less instance
         long after = controller.getOperatorRepository().findAll().size();
         Assert.assertEquals(before-1, after);
+        // assert no operator exists with id
+        Assert.assertFalse(operatorRepository.findById(lastOperator.getId()).isPresent());
     }
 
     @Test
@@ -121,6 +125,10 @@ public class ControllerTest {
         // assert database table has one less active operative
         long after = controller.getOperatorRepository().findByActive(true).size();
         Assert.assertEquals(before-1, after);
+        Optional<Operator> optional = operatorRepository.findById(lastOperator.getId());
+        Assert.assertTrue(optional.isPresent());
+        Operator operator = optional.get();
+        Assert.assertFalse(operator.isActive());
     }
 
 }
