@@ -2,6 +2,7 @@ package samuelmovi.bootGuiJpa.controller;
 
 import org.junit.Assert;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -26,8 +27,8 @@ public class ControllerTest {
     private OperatorRepository operatorRepository;
 
     private Controller controller;
-    @Mock
-    private View view;
+
+    private View mockView;
 
     private String[][] employeeData = {
             {"Bauer", "Jack"},
@@ -38,12 +39,12 @@ public class ControllerTest {
     @Before
     public void before(){
         // setup mocks
-        MockitoAnnotations.initMocks(this);
+        mockView = Mockito.mock(View.class);
 
         // setup controller
         this.controller = new Controller();
         this.controller.setOperatorRepository(operatorRepository);
-        this. controller.setView(view);
+        this. controller.setView(mockView);
 
         // FEED DATABASE
         System.out.println("[CtrlTest] Feeding database...");
@@ -68,6 +69,20 @@ public class ControllerTest {
         controller.populate();
         // assert expected results
         Assert.assertEquals(before + 5, operatorRepository.count());
+    }
+
+    @Test
+    public void testCreateNew(){
+        // check number of instances in db table
+        long before = operatorRepository.count();
+        // execute method
+        controller.createNew("first", "last");
+        // assert new number of instances in db table
+        Assert.assertEquals(before+1, operatorRepository.count());
+        // assert field values are as expected
+        Assert.assertNotNull(operatorRepository.findByLastNameAllIgnoringCase("LAST"));
+        Assert.assertTrue(operatorRepository.findByFirstNameAllIgnoringCase("asdfq123").isEmpty());
+        Mockito.verify(mockView, Mockito.times(1)).clearNewOpFields();
     }
 
     @Test
@@ -97,44 +112,36 @@ public class ControllerTest {
         Optional<Operator> optional = operatorRepository.findByFirstName(
                 operatorRepository.findAll().get(0).getFirstName()
         );
-        if (optional.isPresent()){
-            Operator operator = optional.get();
-            // execute function
-            controller.deleteOperative(operator.getId());
-        }
+        Assert.assertTrue(optional.isPresent());
+        Operator operator = optional.get();
+        // execute function
+        controller.deleteOperative(operator.getId());
+
         // test result
         Assert.assertEquals(before -1 , operatorRepository.count());
+        // assert no operator exists with id
+        Assert.assertFalse(operatorRepository.findById(operator.getId()).isPresent());
 
     }
 
     @Test
     public void testDeactivateOperative(){
-        // capture current total operatives
-        long before = operatorRepository.findAllByActive(true).size();
-        // set operativeID
-        Optional<Operator> optional = operatorRepository.findByFirstName(
-                operatorRepository.findAll().get(0).getFirstName()
-        );
-        if (optional.isPresent()){
-            Operator operator = optional.get();
-            // execute function
-            controller.deactivateOperative(operator.getId());
-        }
-        // test result
-        Assert.assertEquals(before - 1, operatorRepository.findAllByActive(true).size());
+        // set value for controller.operatorID
+        Operator lastOperator = controller.getOperatorRepository().findAllByActive(true).get(0);
+        // save number of active operatives in database table
+        long before = controller.getOperatorRepository().findAllByActive(true).size();
+
+        // execute method
+        controller.deactivateOperative(lastOperator.getId());
+
+        // assert database table has one less active operative
+        long after = controller.getOperatorRepository().findAllByActive(true).size();
+        Assert.assertEquals(before-1, after);
+        Optional<Operator> optional = operatorRepository.findById(lastOperator.getId());
+        Assert.assertTrue(optional.isPresent());
+        Assert.assertFalse(optional.get().isActive());
     }
 
-    @Test
-    public void testCreateNew(){
-        // check number of instances in db table
-        long before = operatorRepository.count();
-        // execute method
-        controller.createNew("first", "last");
-        // assert new number of instances in db table
-        Assert.assertEquals(before+1, operatorRepository.count());
-        // assert field values are as expected
-        Assert.assertNotNull(operatorRepository.findByLastNameAllIgnoringCase("LAST"));
-        Assert.assertTrue(operatorRepository.findByFirstNameAllIgnoringCase("asdfq123").isEmpty());
-    }
+
 
 }

@@ -18,7 +18,6 @@ import javax.swing.table.DefaultTableModel;
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ViewTest {
 
-    // @Autowired
     private View view;
     @Autowired
     private EmployeeDao employeeDao;

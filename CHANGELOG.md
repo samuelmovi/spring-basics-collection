@@ -13,7 +13,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2019-10-15
 ### Changed
-- improved testing in spring-gui-jpa, spring-gui-jdbc
+- improved testing in spring-gui-jpa, spring-gui-jdbc, boot-gui-jpa
 
 ## 2019-10-10
 ### Changed
