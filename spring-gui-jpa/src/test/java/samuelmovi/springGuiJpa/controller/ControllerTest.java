@@ -1,6 +1,7 @@
 package samuelmovi.springGuiJpa.controller;
 
 import org.junit.Assert;
+import org.mockito.Mockito;
 import samuelmovi.springGuiJpa.model.Operator;
 import samuelmovi.springGuiJpa.repo.OperatorRepository;
 import org.junit.After;
@@ -10,6 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import samuelmovi.springGuiJpa.view.View;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -22,6 +24,7 @@ public class ControllerTest {
     private OperatorRepository operatorRepository;
     @Autowired
     private Controller controller;
+    View view;
 
 
     private String[][] employeeData = {
@@ -30,27 +33,24 @@ public class ControllerTest {
             {"Movi", "Sam"},
     };
 
-    private static boolean firstRun = true;
+    // private static boolean firstRun = true;
 
     @Before
     public void before(){
+        operatorRepository.deleteAll();
         // FEED DATABASE
-        System.out.println("[CtrlTest] Feeding database...");
         for (String[] data: employeeData){
             Operator operator = new Operator(data[0], data[1]);
             operatorRepository.save(operator);
         }
-        if (firstRun){
-            controller.init();
-            firstRun = false;
-        }
+
+        view = Mockito.mock(View.class);
+        controller.setView(view);
     }
 
     @After
     public void after(){
-        // EMPTY DATABASE
-        System.out.println("[CtrlTest] Emptying database...");
-        operatorRepository.deleteAll();
+
     }
 
     @Test
@@ -72,8 +72,8 @@ public class ControllerTest {
         // assert new number of instances in db table
         Assert.assertEquals(before+1, controller.getOperatorRepository().count());
         // assert field values are as expected
-        Assert.assertNotNull(controller.getOperatorRepository().findByLastNameAllIgnoringCase("LAST"));
-        Assert.assertTrue(controller.getOperatorRepository().findByFirstNameAllIgnoringCase("asdfq123").isEmpty());
+        Assert.assertNotNull(operatorRepository.findByLastNameAllIgnoringCase("LAST"));
+        Assert.assertTrue(operatorRepository.findByFirstNameAllIgnoringCase("asdfq123").isEmpty());
     }
 
     @Test

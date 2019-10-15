@@ -64,7 +64,7 @@
     </bean>
 
     <bean id="controller" class="samuelmovi.springGuiJpa.controller.Controller">
-        <constructor-arg name="view" ref="view"/>
+       <!-- <constructor-arg name="view" ref="view"/>-->
     </bean>
 
 </beans>

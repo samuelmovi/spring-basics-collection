@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - find way to create keyboard input for cli projects testing
 - find way to mock Scanner class
 
+## 2019-10-15
+### Changed
+- improved view testing in spring-gui-jpa
+
 ## 2019-10-10
 ### Changed
 - code cleanup and improvements in controller and view for spring-gui-jdbc and spring-gui-jpa

@@ -87,19 +87,6 @@ public class View {
         delete();
     }
 
-    public void fillModel(DefaultTableModel model, List<Operator> list){
-        model.setRowCount(0);
-        for (Operator employee: list){
-            Vector<String> vector = new Vector<String>();
-            vector.add(String.valueOf(employee.getId()));
-            vector.add(employee.getLastName());
-            vector.add(employee.getFirstName());
-            vector.add(String.valueOf(employee.isActive()));
-            model.addRow(vector);
-            System.out.println(employee.toString());
-        }
-    }
-
     public void allOperatives(){
         // ALL OPERATIVES
         allOperativesTab = new JPanel();
@@ -243,6 +230,20 @@ public class View {
         lastNameField.setText("");
         firstNameField.setText("");
     }
+
+    public void fillModel(DefaultTableModel model, List<Operator> list){
+        model.setRowCount(0);
+        for (Operator employee: list){
+            Vector<String> vector = new Vector<String>();
+            vector.add(String.valueOf(employee.getId()));
+            vector.add(employee.getLastName());
+            vector.add(employee.getFirstName());
+            vector.add(String.valueOf(employee.isActive()));
+            model.addRow(vector);
+            // System.out.println(employee.toString());
+        }
+    }
+
 
 
     // SETTERS AND GETTERS
@@ -432,5 +433,81 @@ public class View {
 
     public void setFrame(JFrame frame) {
         this.frame = frame;
+    }
+
+    public String getTitleMessage() {
+        return titleMessage;
+    }
+
+    public JTable getAllOperativesTabTable() {
+        return allOperativesTabTable;
+    }
+
+    public void setAllOperativesTabTable(JTable allOperativesTabTable) {
+        this.allOperativesTabTable = allOperativesTabTable;
+    }
+
+    public JTable getAllActiveOperativesTabTable() {
+        return allActiveOperativesTabTable;
+    }
+
+    public void setAllActiveOperativesTabTable(JTable allActiveOperativesTabTable) {
+        this.allActiveOperativesTabTable = allActiveOperativesTabTable;
+    }
+
+    public TableRowSorter<TableModel> getAllOperativesSorter() {
+        return allOperativesSorter;
+    }
+
+    public void setAllOperativesSorter(TableRowSorter<TableModel> allOperativesSorter) {
+        this.allOperativesSorter = allOperativesSorter;
+    }
+
+    public TableRowSorter<TableModel> getAllActiveOperativesSorter() {
+        return allActiveOperativesSorter;
+    }
+
+    public void setAllActiveOperativesSorter(TableRowSorter<TableModel> allActiveOperativesSorter) {
+        this.allActiveOperativesSorter = allActiveOperativesSorter;
+    }
+
+    public TableRowSorter<TableModel> getDeactivateOperativesSorter() {
+        return deactivateOperativesSorter;
+    }
+
+    public void setDeactivateOperativesSorter(TableRowSorter<TableModel> deactivateOperativesSorter) {
+        this.deactivateOperativesSorter = deactivateOperativesSorter;
+    }
+
+    public TableRowSorter<TableModel> getDeleteOperativesSorter() {
+        return deleteOperativesSorter;
+    }
+
+    public void setDeleteOperativesSorter(TableRowSorter<TableModel> deleteOperativesSorter) {
+        this.deleteOperativesSorter = deleteOperativesSorter;
+    }
+
+    public String getFirstNameLabelString() {
+        return firstNameLabelString;
+    }
+
+    public void setFirstNameLabelString(String firstNameLabelString) {
+        this.firstNameLabelString = firstNameLabelString;
+    }
+
+    public String getLastNameLabelString() {
+        return lastNameLabelString;
+    }
+
+    public void setLastNameLabelString(String lastNameLabelString) {
+        this.lastNameLabelString = lastNameLabelString;
+    }
+
+    public String getRegisterButtonLabelString() {
+        return registerButtonLabelString;
+    }
+
+    public void setRegisterButtonLabelString(String registerButtonLabelString) {
+        this.registerButtonLabelString = registerButtonLabelString;
     }
 }

@@ -15,13 +15,14 @@ import java.util.Optional;
 public class Controller {
     @Autowired
     private OperatorRepository operatorRepository;
+    @Autowired
     private View view;
 
     private String operatorID;
 
-    public Controller(View view){
+    /*public Controller(View view){
         this.view = view;
-    }
+    }*/
 
     public void init(){
         if( operatorRepository.count() == 0){
@@ -94,7 +95,7 @@ public class Controller {
     }
 
     public void refreshModels(){
-        view.fillModel(view.getAllOperativesModel(), (List<Operator>)operatorRepository.findAll());
+        view.fillModel(view.getAllOperativesModel(), operatorRepository.findAll());
         view.fillModel(view.getAllActiveOperativesModel(), operatorRepository.findByActive(true));
     }
 
@@ -114,5 +115,13 @@ public class Controller {
 
     public void setOperatorID(String operatorID) {
         this.operatorID = operatorID;
+    }
+
+    public View getView() {
+        return view;
+    }
+
+    public void setView(View view) {
+        this.view = view;
     }
 }

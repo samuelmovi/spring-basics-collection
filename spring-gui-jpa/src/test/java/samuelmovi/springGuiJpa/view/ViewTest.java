@@ -12,16 +12,16 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import samuelmovi.springGuiJpa.model.Operator;
 import samuelmovi.springGuiJpa.repo.OperatorRepository;
 
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 @ContextConfiguration(locations = "classpath:Tests.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
 public class ViewTest {
 
+    private View view =  new View();
     @Autowired
-    View view;
-    @Autowired
-    OperatorRepository operatorRepository;
+    private OperatorRepository operatorRepository;
 
     private String[][] operatorData = {
             {"Bauer", "Jack"},
@@ -29,109 +29,169 @@ public class ViewTest {
             {"Movi", "Sam"},
     };
 
-    private static boolean firstRun = true;
+    //private static boolean firstRun = true;
 
     @Before
     public void before(){
-        if (firstRun){
-            view.render();
-            firstRun = false;
-        }
-
+        operatorRepository.deleteAll();
     }
 
     @After
     public void after(){
-        view.getTabbedPane().removeAll();
+
     }
 
     @Test
     public void testRender(){
+        // check null
+        Assert.assertNull(view.getFrame());
+        Assert.assertNull(view.getContentPane());
+        Assert.assertNull(view.getTabbedPane());
+
         // execute method
         view.render();
+
         // assert expected results
         Assert.assertNotNull(view.getFrame());
         Assert.assertNotNull(view.getContentPane());
         Assert.assertNotNull(view.getTabbedPane());
         Assert.assertEquals(1, view.getContentPane().getComponentCount());
-    }
-
-    @Test
-    public void testAllActive(){
-        // execute method
-        view.allActive();
-        // assert expected result:
-        Assert.assertNotNull(view.getAllActiveOperativesTab());
-        Assert.assertEquals(1, view.getTabbedPane().getComponentCount());
-        Assert.assertEquals(view.getAllActiveOperativesTabTitle(), view.getTabbedPane().getTitleAt(0));
+        Assert.assertEquals(0, view.getTabbedPane().getComponentCount());
     }
 
     @Test
     public void testAllOperatives(){
+        // check null
+        Assert.assertNull(view.getAllOperativesTab());
+        Assert.assertNull(view.getAllOperativesTabTable());
+
+        // set object state
+        view.setTabbedPane(new JTabbedPane());
+        String[] columnNames = {"ID", "Last Name", "First Name", "Status"};
+        view.setColumnNames(columnNames);
+
         // execute method
         view.allOperatives();
         // assert expected result:
         Assert.assertNotNull(view.getAllOperativesTab());
+        Assert.assertNotNull(view.getAllOperativesTabTable());
         Assert.assertEquals(1, view.getTabbedPane().getComponentCount());
-        Assert.assertEquals(view.getAllOperativesTabTitle(), view.getTabbedPane().getTitleAt(0));
     }
+
+
+    @Test
+    public void testAllActive(){
+        // check null
+        Assert.assertNull(view.getAllActiveOperativesTab());
+        Assert.assertNull(view.getAllActiveOperativesTabTable());
+
+        // set object state
+        view.setTabbedPane(new JTabbedPane());
+
+        // execute method
+        view.allActive();
+        // assert expected result:
+        Assert.assertNotNull(view.getAllActiveOperativesTab());
+        Assert.assertNotNull(view.getAllActiveOperativesTabTable());
+    }
+
 
     @Test
     public void testRegisterNew(){
+        // check null
+        Assert.assertNull(view.getRegisterNewOperativesTab());
+        Assert.assertNull(view.getFirstNameField());
+        Assert.assertNull(view.getLastNameField());
+
+        // set object state
+        view.setTabbedPane(new JTabbedPane());
+
         // execute method
         view.registerNew();
         // assert expected result:
         Assert.assertNotNull(view.getRegisterNewOperativesTab());
+        Assert.assertNotNull(view.getFirstNameField());
+        Assert.assertNotNull(view.getLastNameField());
+
         Assert.assertEquals(1, view.getTabbedPane().getComponentCount());
-        Assert.assertEquals(view.getRegisterNewOperativeTabTitle(), view.getTabbedPane().getTitleAt(0));
+        Assert.assertEquals(5, view.getRegisterNewOperativesTab().getComponentCount());
     }
 
     @Test
     public void testDeactivate(){
+        // check null
+        Assert.assertNull(view.getDeactivateOperativesTab());
+        Assert.assertNull(view.getDeactivateOperativesTabTable());
+        Assert.assertNull(view.getDeactivateButton());
+
+        // set object state
+        view.setTabbedPane(new JTabbedPane());
+
         // execute method
         view.deactivate();
         // assert expected result:
         Assert.assertNotNull(view.getDeactivateOperativesTab());
+        Assert.assertNotNull(view.getDeactivateOperativesTabTable());
+        Assert.assertNotNull(view.getDeactivateButton());
+
         Assert.assertEquals(1, view.getTabbedPane().getComponentCount());
-        Assert.assertEquals(view.getDeactivateOperativeTabTitle(), view.getTabbedPane().getTitleAt(0));
+        Assert.assertEquals(2, view.getDeactivateOperativesTab().getComponentCount());
+
     }
 
     @Test
     public void testDelete(){
+        // check null
+        Assert.assertNull(view.getDeleteOperativesTab());
+        Assert.assertNull(view.getDeleteOperativesTabTable());
+        Assert.assertNull(view.getDeleteButton());
+
+        // set object state
+        view.setTabbedPane(new JTabbedPane());
+
         // execute method
         view.delete();
         // assert expected result:
         Assert.assertNotNull(view.getDeleteOperativesTab());
-        Assert.assertEquals(1, view.getTabbedPane().getComponentCount());
-        Assert.assertEquals(view.getDeleteOperativeTabTitle(), view.getTabbedPane().getTitleAt(0));
-    }
+        Assert.assertNotNull(view.getDeleteOperativesTabTable());
+        Assert.assertNotNull(view.getDeleteButton());
 
-    @Test
-    public void testFillModels(){
-        // add instances to repo
-        for (String[] data: operatorData){
-            Operator operator = new Operator(data[0], data[1]);
-            operatorRepository.save(operator);
-        }
-        // pass empty model to method
-        DefaultTableModel testModel = new DefaultTableModel();
-        view.fillModel(testModel, operatorRepository.findAll());
-        // assert expected state of model
-        Assert.assertEquals(operatorData.length, testModel.getRowCount());
+        Assert.assertEquals(1, view.getTabbedPane().getComponentCount());
+        Assert.assertEquals(2, view.getDeleteOperativesTab().getComponentCount());
+
     }
 
     @Test
     public void testClearNewEmployeeFields(){
+        // set object state
+        view.setFirstNameField(new JTextField());
+        view.setLastNameField(new JTextField());
+
         String testString = "REFFEqREWFqweewqr";
-        // set value of fields
         view.getFirstNameField().setText(testString);
         view.getLastNameField().setText(testString);
+
         // execute method
         view.clearNewOperatorFields();
+
         // assert expected results
         Assert.assertEquals("", view.getFirstNameField().getText());
         Assert.assertEquals("", view.getLastNameField().getText());
+    }
 
+    @Test
+    public void testFillModel(){
+        // set object state
+        for (String[] data: operatorData){
+            Operator operator = new Operator(data[0], data[1]);
+            operatorRepository.save(operator);
+        }
+
+        //execute method
+        view.fillModel(view.getAllOperativesModel(), operatorRepository.findAll());
+
+        // assert expected state of model
+        Assert.assertEquals(operatorData.length, view.getAllOperativesModel().getRowCount());
     }
 
 }
