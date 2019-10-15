@@ -5,11 +5,13 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import samuelmovi.springGuiJdbc.model.Employee;
 import samuelmovi.springGuiJdbc.model.EmployeeDao;
+import samuelmovi.springGuiJdbc.view.View;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
@@ -19,9 +21,11 @@ import javax.swing.table.DefaultTableModel;
 public class ControllerTest {
 
     @Autowired
-    EmployeeDao employeeDao;
-    @Autowired
+    private EmployeeDao employeeDao;
+
     private Controller controller;
+    private View mockView;
+
 
 
     private String[][] employeeData = {
@@ -30,28 +34,26 @@ public class ControllerTest {
             {"Movi", "Sam"},
     };
 
-    private static boolean firstRun = true;
+    // private static boolean firstRun = true;
 
     @Before
     public void before(){
         employeeDao.deleteAll();
         // FEED DATABASE
-        System.out.println("[CtrlTest] Feeding database...");
         for (String[] data: employeeData){
             Employee employee = new Employee(data[0], data[1]);
             employeeDao.save(employee);
         }
-        if (firstRun){
-            controller.init();
-            firstRun = false;
-        }
+
+        mockView = Mockito.mock(View.class);
+        controller = new Controller();
+        controller.setView(mockView);
+        controller.setEmployeeDao(employeeDao);
     }
 
     @After
     public void after(){
-        // EMPTY DATABASE
-        System.out.println("[CtrlTest] Emptying database...");
-        employeeDao.deleteAll();
+
     }
 
     @Test
@@ -75,6 +77,8 @@ public class ControllerTest {
         // assert field values are as expected
         Assert.assertNotNull(controller.getEmployeeDao().findByField("last_name", "LAST"));
         Assert.assertTrue(controller.getEmployeeDao().findByField("first_name","asdfq123").isEmpty());
+        Mockito.verify(mockView, Mockito.times(1)).clearNewEmployeeFields();
+
     }
 
     @Test
@@ -93,21 +97,22 @@ public class ControllerTest {
         controller.selectedEmployee(testTable);
         // assert expected result
         Assert.assertEquals(testValue, controller.getOperatorID());
-
     }
 
     @Test
     public void testDeleteOperative(){
         // set value for controller.operatorID
-        Employee lastOperator = controller.getEmployeeDao().findAll().get(0);
+        Employee lastOperator = employeeDao.findAll().get(0);
         controller.setOperatorID(String.valueOf(lastOperator.getId()));
         // save number of instances in database table
-        long before = controller.getEmployeeDao().findAll().size();
+        long before = employeeDao.findAll().size();
         // execute method
         controller.deleteOperative();
         // assert database table has one less instance
-        long after = controller.getEmployeeDao().findAll().size();
+        long after = employeeDao.findAll().size();
         Assert.assertEquals(before-1, after);
+        // assert no operator exists with id
+        Assert.assertNull(employeeDao.findById(lastOperator.getId()));
     }
 
     @Test
@@ -122,6 +127,9 @@ public class ControllerTest {
         // assert database table has one less active operative
         long after = controller.getEmployeeDao().findByActive(true).size();
         Assert.assertEquals(before-1, after);
+
+        Employee employee = employeeDao.findById(lastEmployee.getId());
+        Assert.assertFalse(employee.isActive());
     }
 
 }

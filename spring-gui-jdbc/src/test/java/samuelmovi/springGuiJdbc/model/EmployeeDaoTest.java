@@ -1,6 +1,5 @@
 package samuelmovi.springGuiJdbc.model;
 
-import com.github.springtestdbunit.annotation.DatabaseSetup;
 import org.junit.Assert;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +13,6 @@ import java.util.List;
 
 @ContextConfiguration(locations = "classpath:Tests.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
-@DatabaseSetup("testDbSetup.xml")
 public class EmployeeDaoTest {
 
     @Autowired

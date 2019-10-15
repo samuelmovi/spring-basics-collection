@@ -216,7 +216,7 @@ public class View {
         tabbedPane.addTab(deleteOperativeTabTitle, deleteOperativesTab);
     }
 
-    public void clearNewEMployeeFields(){
+    public void clearNewEmployeeFields(){
         lastNameField.setText("");
         firstNameField.setText("");
     }

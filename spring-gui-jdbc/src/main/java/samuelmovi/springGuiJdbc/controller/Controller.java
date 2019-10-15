@@ -15,6 +15,8 @@ public class Controller {
     private View view;
     private String operatorID;
 
+    public Controller(){}
+
     public Controller(EmployeeDao employeeDao, View view){
         this.employeeDao = employeeDao;
         this.view = view;
@@ -67,7 +69,7 @@ public class Controller {
         employee.setLastName(lastName);
         employeeDao.save(employee);
 
-        view.clearNewEMployeeFields();
+        view.clearNewEmployeeFields();
 
         refreshModels();
     }

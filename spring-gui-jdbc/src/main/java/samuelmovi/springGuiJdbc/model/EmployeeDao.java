@@ -46,7 +46,12 @@ public class EmployeeDao {
     public Employee findById(long index) {
         String query = "select * from employees where id="+index;
         List<Employee> employees = jdbcTemplate.query(query, new EmployeeMapper());
-        return employees.get(0);
+        if (employees.size()>0){
+            return employees.get(0);
+        }
+        else{
+            return null;
+        }
     }
 
     public List<Employee> findAllActive(){

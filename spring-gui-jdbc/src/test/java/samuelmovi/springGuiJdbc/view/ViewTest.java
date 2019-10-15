@@ -183,7 +183,7 @@ public class ViewTest {
         view.getLastNameField().setText(testString);
 
         // execute method
-        view.clearNewEMployeeFields();
+        view.clearNewEmployeeFields();
 
         // assert expected results
         Assert.assertEquals("", view.getFirstNameField().getText());
